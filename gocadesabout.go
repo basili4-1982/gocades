@@ -27,3 +27,18 @@ func (obj *GoCadesAbout) GetVersion() string {
 	val := C.CCadesAbout_get_version(obj.about)
 	return C.GoString(val)
 }
+
+func (obj *GoCadesAbout) GetMajorVersion() int {
+	val := C.CCadesAbout_get_major_version(obj.about)
+	return int(val)
+}
+
+func (obj *GoCadesAbout) GetMinorVersion() int {
+	val := C.CCadesAbout_get_minor_version(obj.about)
+	return int(val)
+}
+
+func (obj *GoCadesAbout) GetBuildVersion() int {
+	val := C.CCadesAbout_get_build_version(obj.about)
+	return int(val)
+}

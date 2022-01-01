@@ -11,6 +11,9 @@ typedef struct CCadesAbout_t CCadesAbout;
 CCadesAbout *CCadesAbout_create();
 void CCadesAbout_destroy(CCadesAbout *m);
 char* CCadesAbout_get_version(CCadesAbout *m);
+int CCadesAbout_get_major_version(CCadesAbout *m);
+int CCadesAbout_get_minor_version(CCadesAbout *m);
+int CCadesAbout_get_build_version(CCadesAbout *m);
 
 #ifdef __cplusplus
 }
