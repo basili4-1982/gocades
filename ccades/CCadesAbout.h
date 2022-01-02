@@ -23,6 +23,8 @@ int CCadesAbout_get_minor_version(CCadesAbout *m);
 int CCadesAbout_get_build_version(CCadesAbout *m);
 char* CCadesAbout_get_csp_name(CCadesAbout *m, int dwProvType);
 CCadesVersion* CCadesAbout_get_csp_version(CCadesAbout *m, char* szProvName, int dwProvType);
+void CCadesAbout_media_filter(CCadesAbout *m, int dwMediaType);
+void CCadesAbout_reader_filter(CCadesAbout *m, int EnabledTypes, int EnabledOperations, char* FilterRegexp);
 
 #ifdef __cplusplus
 }

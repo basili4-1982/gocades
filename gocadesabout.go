@@ -100,3 +100,23 @@ func (obj *GoCadesAbout) GetCSPName(ProvType int) (string, error) {
 	ret = C.GoString(val)
 	return ret, nil
 }
+
+func (obj *GoCadesAbout) MediaFilter(MediaType int) error {
+	C.CCadesAbout_media_filter(obj.cobjptr, C.int(MediaType))
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return errors.New(err)
+	}
+	return nil
+}
+
+func (obj *GoCadesAbout) ReaderFilter(EnabledTypes int, EnabledOperations int, FilterRegexp string) error {
+	cstr := C.CString(FilterRegexp)
+	defer C.free(unsafe.Pointer(cstr))
+	C.CCadesAbout_reader_filter(obj.cobjptr, C.int(EnabledTypes), C.int(EnabledOperations), cstr)
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return errors.New(err)
+	}
+	return nil
+}

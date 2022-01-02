@@ -33,8 +33,10 @@ char* CCadesVersion_to_string(CCadesVersion_t *m)
 {
     CPPVersionObject *obj;
 
-    if (m == NULL)
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
         return 0;
+    }
 
     obj = static_cast<CPPVersionObject *>(m->obj);
     CAtlString sValue;
@@ -47,8 +49,10 @@ int CCadesVersion_get_major_version(CCadesVersion_t *m)
 {
     CPPVersionObject *obj;
 
-    if (m == NULL)
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
         return 0;
+    }
 
     obj = static_cast<CPPVersionObject *>(m->obj);
     DWORD r;
@@ -61,8 +65,10 @@ int CCadesVersion_get_minor_version(CCadesVersion_t *m)
 {
     CPPVersionObject *obj;
 
-    if (m == NULL)
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
         return 0;
+    }
 
     obj = static_cast<CPPVersionObject *>(m->obj);
     DWORD r;
@@ -75,8 +81,10 @@ int CCadesVersion_get_build_version(CCadesVersion_t *m)
 {
     CPPVersionObject *obj;
 
-    if (m == NULL)
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
         return 0;
+    }
 
     obj = static_cast<CPPVersionObject *>(m->obj);
     DWORD r;

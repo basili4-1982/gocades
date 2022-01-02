@@ -570,5 +570,8 @@ void ErrMsgFromHResult(HRESULT err, char* out_buffer)
         char *s = CW2A(message, CP_UTF8);
         strcpy(out_buffer, s);
     }
+    else{
+        strcpy(out_buffer, "");
+    }
     return;
 }

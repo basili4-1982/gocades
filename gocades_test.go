@@ -12,6 +12,8 @@ func TestAbout(t *testing.T) {
 	about.GetBuildVersion()
 	about.GetCSPVersion("", 80)
 	about.GetCSPName(80)
+	about.MediaFilter(2)
+	about.ReaderFilter(1, 0, ".*rutoken.*")
 }
 
 func TestVersion(t *testing.T) {

@@ -37,8 +37,10 @@ char* CCadesAbout_get_version(CCadesAbout_t *m)
 {
     CPPCadesAboutObject *obj;
 
-    if (m == NULL)
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
         return 0;
+    }
 
     obj = static_cast<CPPCadesAboutObject *>(m->obj);
     CAtlString sValue;
@@ -51,8 +53,10 @@ int CCadesAbout_get_major_version(CCadesAbout_t *m)
 {
     CPPCadesAboutObject *obj;
 
-    if (m == NULL)
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
         return 0;
+    }
 
     obj = static_cast<CPPCadesAboutObject *>(m->obj);
     DWORD r;
@@ -65,8 +69,10 @@ int CCadesAbout_get_minor_version(CCadesAbout_t *m)
 {
     CPPCadesAboutObject *obj;
 
-    if (m == NULL)
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
         return 0;
+    }
 
     obj = static_cast<CPPCadesAboutObject *>(m->obj);
     DWORD r;
@@ -79,8 +85,10 @@ int CCadesAbout_get_build_version(CCadesAbout_t *m)
 {
     CPPCadesAboutObject *obj;
 
-    if (m == NULL)
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
         return 0;
+    }
 
     obj = static_cast<CPPCadesAboutObject *>(m->obj);
     DWORD r;
@@ -106,8 +114,10 @@ char* CCadesAbout_get_csp_name(CCadesAbout_t *m, int dwProvType)
 {
     CPPCadesAboutObject *obj;
 
-    if (m == NULL)
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
         return 0;
+    }
 
     obj = static_cast<CPPCadesAboutObject *>(m->obj);
     CAtlString sValue;
@@ -116,3 +126,33 @@ char* CCadesAbout_get_csp_name(CCadesAbout_t *m, int dwProvType)
     return (char*)sValue.GetString();
 }
 
+void CCadesAbout_media_filter(CCadesAbout_t *m, int dwMediaType)
+{
+    CPPCadesAboutObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return;
+    }
+
+    obj = static_cast<CPPCadesAboutObject *>(m->obj);
+    HRESULT hr = obj->MediaFilter(dwMediaType);
+    ErrMsgFromHResult(hr, m->err);
+    return;
+}
+
+void CCadesAbout_reader_filter(CCadesAbout *m, int EnabledTypes, int EnabledOperations, char* FilterRegexp)
+{
+    CPPCadesAboutObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return;
+    }
+
+    obj = static_cast<CPPCadesAboutObject *>(m->obj);
+    CAtlStringA sFilterRegexp(FilterRegexp);
+    HRESULT hr = obj->ReaderFilter(EnabledTypes, EnabledOperations, sFilterRegexp);
+    ErrMsgFromHResult(hr, m->err);
+    return;
+}
