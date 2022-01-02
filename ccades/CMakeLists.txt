@@ -3,6 +3,7 @@ PROJECT(ccades LANGUAGES CXX)
     SET (ccades_LIB_SRCS
             CCadesAbout.cpp
             CCadesVersion.cpp
+            CCadesOID.cpp
             errormsg.cpp
         )
 FIND_PACKAGE( Boost REQUIRED )
