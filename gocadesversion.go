@@ -12,14 +12,6 @@ type GoCadesVersion struct {
 	cobjptr *C.CCadesVersion
 }
 
-//func version() *GoCadesVersion {
-//	ret := &GoCadesVersion{C.CCadesVersion_create()}
-//	runtime.SetFinalizer(ret, func(obj *GoCadesVersion) {
-//		C.CCadesVersion_destroy(obj.version)
-//	})
-//	return ret
-//}
-
 func (obj *GoCadesVersion) ToString() (string, error) {
 	var ret string
 	val := C.CCadesVersion_to_string(obj.cobjptr)
@@ -31,17 +23,35 @@ func (obj *GoCadesVersion) ToString() (string, error) {
 	return ret, nil
 }
 
-func (obj *GoCadesVersion) GetMajorVersion() int {
+func (obj *GoCadesVersion) GetMajorVersion() (int, error) {
+	var ret int
 	val := C.CCadesVersion_get_major_version(obj.cobjptr)
-	return int(val)
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return ret, errors.New(err)
+	}
+	ret = int(val)
+	return ret, nil
 }
 
-func (obj *GoCadesVersion) GetMinorVersion() int {
+func (obj *GoCadesVersion) GetMinorVersion() (int, error) {
+	var ret int
 	val := C.CCadesVersion_get_minor_version(obj.cobjptr)
-	return int(val)
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return ret, errors.New(err)
+	}
+	ret = int(val)
+	return ret, nil
 }
 
-func (obj *GoCadesVersion) GetBuildVersion() int {
+func (obj *GoCadesVersion) GetBuildVersion() (int, error) {
+	var ret int
 	val := C.CCadesVersion_get_build_version(obj.cobjptr)
-	return int(val)
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return ret, errors.New(err)
+	}
+	ret = int(val)
+	return ret, nil
 }
