@@ -1,6 +1,12 @@
 GoCades
 ===
 
+---
+**NOTE:**
+Experimented package, not implemented yet.
+
+---
+
 GoCades implements CryptoPro ECP Browser-Plugin interface for Go programming language.
 Can be used for
 - digitally signing/verifying data of CAdES-BES, CAdES-T, CAdES-X Long Type 1 types

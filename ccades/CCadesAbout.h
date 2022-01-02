@@ -5,7 +5,14 @@
 extern "C" {
 #endif
 
-struct CCadesAbout_t;
+#include "CCadesVersion.h"
+
+struct CCadesAbout_t
+{
+    void *obj;
+    char *err;
+};
+
 typedef struct CCadesAbout_t CCadesAbout;
 
 CCadesAbout *CCadesAbout_create();
@@ -14,6 +21,8 @@ char* CCadesAbout_get_version(CCadesAbout *m);
 int CCadesAbout_get_major_version(CCadesAbout *m);
 int CCadesAbout_get_minor_version(CCadesAbout *m);
 int CCadesAbout_get_build_version(CCadesAbout *m);
+char* CCadesAbout_get_csp_name(CCadesAbout *m, int dwProvType);
+CCadesVersion* CCadesAbout_get_csp_version(CCadesAbout *m, char* szProvName, int dwProvType);
 
 #ifdef __cplusplus
 }

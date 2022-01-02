@@ -558,3 +558,17 @@ const ATL::CAtlStringW GetErrorMessage(HRESULT hr, DWORD dwLangId){
     return ret;
 }
 #endif //UNIX
+
+void ErrMsgFromHResult(HRESULT err, char* out_buffer)
+{
+    if (err)
+    {
+        CAtlStringW message = GetErrorMessage(HRESULT_FROM_WIN32(err), 0x409);
+        wchar_t buff[14];
+        swprintf(buff, 14, L" (0x%08X)", err);
+        message.Append(buff);
+        char *s = CW2A(message, CP_UTF8);
+        strcpy(out_buffer, s);
+    }
+    return;
+}

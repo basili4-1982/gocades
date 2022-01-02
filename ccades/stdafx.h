@@ -8,6 +8,7 @@
 #define CMSG_SIGNER_ENCODE_INFO_HAS_CMS_FIELDS
 #define CMSG_SIGNED_ENCODE_INFO_HAS_CMS_FIELDS
 #define CERT_PARA_HAS_EXTRA_FIELDS
+#define ERR_MAX_SIZE 256
 
 #define WIN32_LEAN_AND_MEAN // Exclude rarely-used stuff from Windows headers
 // Windows Header Files:

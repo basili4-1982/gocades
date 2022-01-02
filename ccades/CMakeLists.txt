@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 PROJECT(ccades LANGUAGES CXX)
     SET (ccades_LIB_SRCS
             CCadesAbout.cpp
+            CCadesVersion.cpp
+            errormsg.cpp
         )
 FIND_PACKAGE( Boost REQUIRED )
 

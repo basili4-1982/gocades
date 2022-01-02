@@ -4,9 +4,9 @@
 * \date $Date::                           $
 * \author $Author$
 *
-* \brief Интерфейс для форматирования сообщений об ошибках.
+* \brief пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 *
-* Интерфейс для форматирования сообщений об ошибках.
+* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
 */
 #ifndef _ERRORMSG_H_INCLUDED
 #define _ERRORMSG_H_INCLUDED
@@ -27,5 +27,13 @@ const ATL::CAtlStringW GetErrorMessage(HRESULT hr, DWORD dwLangId = 0);
 #if defined _WIN32 && defined  __CSTRINGT_H__
 const ATL::CAtlStringW GetErrorMessage(HRESULT hr, DWORD dwLangId = 0);
 #endif // _WIN32 && __CSTRINGT_H__
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+void ErrMsgFromHResult(HRESULT err, char* out_buffer);
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _ERRORMSG_H_INCLUDED */

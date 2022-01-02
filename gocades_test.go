@@ -4,22 +4,21 @@ import (
 	"testing"
 )
 
-func TestAboutGetVersion(t *testing.T) {
-	about := About()
+func TestAbout(t *testing.T) {
+	about, _ := About()
 	about.GetVersion()
-}
-
-func TestAboutGetMajorVersion(t *testing.T) {
-	about := About()
 	about.GetMajorVersion()
-}
-
-func TestAboutGetMinorVersion(t *testing.T) {
-	about := About()
 	about.GetMinorVersion()
+	about.GetBuildVersion()
+	about.GetCSPVersion("", 80)
+	about.GetCSPName(80)
 }
 
-func TestAboutGetBuildVersion(t *testing.T) {
-	about := About()
-	about.GetBuildVersion()
+func TestVersion(t *testing.T) {
+	about, _ := About()
+	version, _ := about.GetCSPVersion("", 80)
+	version.ToString()
+	version.GetMajorVersion()
+	version.GetMinorVersion()
+	version.GetBuildVersion()
 }
