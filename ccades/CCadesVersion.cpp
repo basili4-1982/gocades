@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include <stdlib.h>
 #include "CCadesVersion.h"
-#include "CPPVerobj->toString(sValue);sion.h"
+#include "CPPVersion.h"
 
 using namespace CryptoPro::PKI::CAdES;
 
