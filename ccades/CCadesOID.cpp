@@ -31,6 +31,37 @@ void CCadesOID_destroy(CCadesOID *m)
     free(m);
 }
 
+char* CCadesOID_get_value(CCadesOID *m)
+{
+    CPPCadesCPOIDObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return 0;
+    }
+
+    obj = static_cast<CPPCadesCPOIDObject *>(m->obj);
+    boost::shared_ptr<CAtlStringA> sValue;
+    HRESULT hr = obj->get_Value(sValue);
+    ErrMsgFromHResult(hr, m->err);
+    return (char*)sValue->GetString();
+}
+
+void CCadesOID_set_value(CCadesOID_t *m, char* value)
+{
+    CPPCadesCPOIDObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return;
+    }
+
+    obj = static_cast<CPPCadesCPOIDObject *>(m->obj);
+    HRESULT hr = obj->put_Value(value);
+    ErrMsgFromHResult(hr, m->err);
+    return;
+}
+
 char* CCadesOID_get_friendly_name(CCadesOID *m)
 {
     CPPCadesCPOIDObject *obj;
@@ -57,38 +88,8 @@ void CCadesOID_set_friendly_name(CCadesOID_t *m, char* szFriendlyName)
     }
 
     obj = static_cast<CPPCadesCPOIDObject *>(m->obj);
-    HRESULT hr = obj->put_FriendlyName(szFriendlyName);
-    ErrMsgFromHResult(hr, m->err);
-    return;
-}
-
-char* CCadesOID_get_value(CCadesOID *m)
-{
-    CPPCadesCPOIDObject *obj;
-
-    if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
-        return 0;
-    }
-
-    obj = static_cast<CPPCadesCPOIDObject *>(m->obj);
-    boost::shared_ptr<CAtlStringA> sValue;
-    HRESULT hr = obj->get_Value(sValue);
-    ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue->GetString();
-}
-
-void CCadesOID_set_value(CCadesOID_t *m, char* szFriendlyName)
-{
-    CPPCadesCPOIDObject *obj;
-
-    if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
-        return;
-    }
-
-    obj = static_cast<CPPCadesCPOIDObject *>(m->obj);
-    HRESULT hr = obj->put_Value(szFriendlyName);
+    CAtlString sValue = CAtlString(szFriendlyName);
+    HRESULT hr = obj->put_FriendlyName(sValue);
     ErrMsgFromHResult(hr, m->err);
     return;
 }

@@ -24,3 +24,28 @@ func TestVersion(t *testing.T) {
 	version.GetMinorVersion()
 	version.GetBuildVersion()
 }
+
+func TestAttribute(t *testing.T) {
+	attribute, _ := Attribute()
+	attribute.PutValue("ABCD")
+	attribute.GetValue()
+	attribute.PutName(2)
+	attribute.GetName()
+	attribute.PutValueEncoding(1)
+	attribute.GetValueEncoding()
+	attribute.PutOID("1.2.3.3.5")
+	attribute.GetOID()
+}
+
+func TestOID(t *testing.T) {
+	attribute, _ := Attribute()
+	oid, _ := attribute.GetOID()
+	oid.SetFriendlyName("ГОСТ Р 34.10-2001")
+	oid.GetFriendlyName()
+	oid.GetValue()
+	oid.SetValue("1.2.643.7.1.1.2.2")
+	oid.GetFriendlyName()
+	oid.SetName(1)
+	oid.GetName()
+	oid.GetValue()
+}

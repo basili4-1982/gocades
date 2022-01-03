@@ -15,6 +15,7 @@
 #define FACILITY_TSPSRV                  0x212
 #define FACILITY_OCSPSRV                 0x213
 
+#include <iostream>
 #ifdef UNIX
 #   include "CSP_WinCrypt.h"
 #   include "CSP_WinError.h"
@@ -567,11 +568,8 @@ void ErrMsgFromHResult(HRESULT err, char* out_buffer)
         wchar_t buff[14];
         swprintf(buff, 14, L" (0x%08X)", err);
         message.Append(buff);
-        char *s = CW2A(message, CP_UTF8);
-        strcpy(out_buffer, s);
-    }
-    else{
-        strcpy(out_buffer, "");
+        CAtlStringA s = CAtlStringA(CW2A(message, CP_UTF8));
+        strcpy(out_buffer, s.GetBuffer());
     }
     return;
 }
