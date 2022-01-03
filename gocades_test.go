@@ -1,6 +1,7 @@
 package gocades
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -48,4 +49,14 @@ func TestOID(t *testing.T) {
 	oid.SetName(1)
 	oid.GetName()
 	oid.GetValue()
+}
+
+func TestLicense(t *testing.T) {
+	license, _ := License()
+	fmt.Println(license.SetLicense("5050EF301001FCZCT9M0HNAUV", "UserName", "CompanyName"))
+	fmt.Println(license.GetCompanyName(0))
+	fmt.Println(license.GetFirstInstallDate(0))
+	fmt.Println(license.GetSerialNumber(0))
+	fmt.Println(license.GetType(0))
+	fmt.Println(license.GetValidTo(0))
 }

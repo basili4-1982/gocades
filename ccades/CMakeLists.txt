@@ -4,6 +4,7 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesAbout.cpp
             CCadesAttribute.cpp
             CCadesAttributes.cpp
+            CCadesLicense.cpp
             CCadesVersion.cpp
             CCadesOID.cpp
             errormsg.cpp

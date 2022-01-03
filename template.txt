@@ -234,3 +234,32 @@ func (obj *GoCadesAttributes) Clear() error {
 	}
 	return nil
 }
+
+// int->string
+char* CCadesLicense_get_first_install_date(CCadesLicense *m, int value)
+{
+    CPPCadesCPLicenseObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return 0;
+    }
+
+    obj = static_cast<CPPCadesCPLicenseObject *>(m->obj);
+    CAtlString sValue;
+    HRESULT hr = obj->FirstInstallDate(value, sValue);
+    ErrMsgFromHResult(hr, m->err);
+    return (char*)sValue.GetString();
+}
+
+// goint->gostring
+func (obj *GoCadesAbout) GetCSPName(ProvType int) (string, error) {
+	var ret string
+	val := C.CCadesAbout_get_csp_name(obj.cobjptr, C.int(ProvType))
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return "", errors.New(err)
+	}
+	ret = C.GoString(val)
+	return ret, nil
+}

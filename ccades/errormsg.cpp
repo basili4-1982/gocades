@@ -571,5 +571,9 @@ void ErrMsgFromHResult(HRESULT err, char* out_buffer)
         CAtlStringA s = CAtlStringA(CW2A(message, CP_UTF8));
         strcpy(out_buffer, s.GetBuffer());
     }
+    else {
+        CAtlStringA s = CAtlStringA("");
+        strcpy(out_buffer, s.GetBuffer());
+    }
     return;
 }
