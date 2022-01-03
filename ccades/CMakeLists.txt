@@ -3,6 +3,7 @@ PROJECT(ccades LANGUAGES CXX)
     SET (ccades_LIB_SRCS
             CCadesAbout.cpp
             CCadesAttribute.cpp
+            CCadesAttributes.cpp
             CCadesVersion.cpp
             CCadesOID.cpp
             errormsg.cpp

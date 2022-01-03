@@ -33,7 +33,7 @@ void CCadesAbout_destroy(CCadesAbout *m)
     free(m);
 }
 
-char* CCadesAbout_get_version(CCadesAbout_t *m)
+char* CCadesAbout_get_version(CCadesAbout *m)
 {
     CPPCadesAboutObject *obj;
 
@@ -49,7 +49,7 @@ char* CCadesAbout_get_version(CCadesAbout_t *m)
     return (char*)sValue.GetString();
 }
 
-int CCadesAbout_get_major_version(CCadesAbout_t *m)
+int CCadesAbout_get_major_version(CCadesAbout *m)
 {
     CPPCadesAboutObject *obj;
 
@@ -65,7 +65,7 @@ int CCadesAbout_get_major_version(CCadesAbout_t *m)
     return r;
 }
 
-int CCadesAbout_get_minor_version(CCadesAbout_t *m)
+int CCadesAbout_get_minor_version(CCadesAbout *m)
 {
     CPPCadesAboutObject *obj;
 
@@ -81,7 +81,7 @@ int CCadesAbout_get_minor_version(CCadesAbout_t *m)
     return r;
 }
 
-int CCadesAbout_get_build_version(CCadesAbout_t *m)
+int CCadesAbout_get_build_version(CCadesAbout *m)
 {
     CPPCadesAboutObject *obj;
 
@@ -97,7 +97,7 @@ int CCadesAbout_get_build_version(CCadesAbout_t *m)
     return r;
 }
 
-CCadesVersion* CCadesAbout_get_csp_version(CCadesAbout_t *m, char* szProvName, int dwProvType)
+CCadesVersion* CCadesAbout_get_csp_version(CCadesAbout *m, char* szProvName, int dwProvType)
 {
     CAtlString provName = CAtlString(szProvName); 
     boost::shared_ptr<CryptoPro::PKI::CAdES::CPPVersionObject> pObj;
@@ -110,7 +110,7 @@ CCadesVersion* CCadesAbout_get_csp_version(CCadesAbout_t *m, char* szProvName, i
     return ret;
 }
 
-char* CCadesAbout_get_csp_name(CCadesAbout_t *m, int dwProvType)
+char* CCadesAbout_get_csp_name(CCadesAbout *m, int dwProvType)
 {
     CPPCadesAboutObject *obj;
 
@@ -126,7 +126,7 @@ char* CCadesAbout_get_csp_name(CCadesAbout_t *m, int dwProvType)
     return (char*)sValue.GetString();
 }
 
-void CCadesAbout_media_filter(CCadesAbout_t *m, int dwMediaType)
+void CCadesAbout_media_filter(CCadesAbout *m, int dwMediaType)
 {
     CPPCadesAboutObject *obj;
 

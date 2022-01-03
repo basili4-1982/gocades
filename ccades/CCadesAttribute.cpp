@@ -61,7 +61,7 @@ void CCadesAttribute_put_oid(CCadesAttribute *m, char* value)
     return;
 }
 
-char* CCadesAttribute_get_value(CCadesAttribute_t *m)
+char* CCadesAttribute_get_value(CCadesAttribute *m)
 {
     CPPCadesCPAttributeObject *obj;
 
@@ -95,7 +95,7 @@ void CCadesAttribute_put_value(CCadesAttribute *m, char* value)
     return;
 }
 
-void CCadesAttribute_put_name(CCadesAttribute_t *m, int value)
+void CCadesAttribute_put_name(CCadesAttribute *m, int value)
 {
     CPPCadesCPAttributeObject *obj;
 
@@ -110,7 +110,7 @@ void CCadesAttribute_put_name(CCadesAttribute_t *m, int value)
     return;
 }
 
-int CCadesAttribute_get_name(CCadesAttribute_t *m)
+int CCadesAttribute_get_name(CCadesAttribute *m)
 {
     CPPCadesCPAttributeObject *obj;
 
@@ -127,7 +127,7 @@ int CCadesAttribute_get_name(CCadesAttribute_t *m)
     return r;
 }
 
-void CCadesAttribute_put_value_encoding(CCadesAttribute_t *m, int value)
+void CCadesAttribute_put_value_encoding(CCadesAttribute *m, int value)
 {
     CPPCadesCPAttributeObject *obj;
 
@@ -142,7 +142,7 @@ void CCadesAttribute_put_value_encoding(CCadesAttribute_t *m, int value)
     return;
 }
 
-int CCadesAttribute_get_value_encoding(CCadesAttribute_t *m)
+int CCadesAttribute_get_value_encoding(CCadesAttribute *m)
 {
     CPPCadesCPAttributeObject *obj;
 

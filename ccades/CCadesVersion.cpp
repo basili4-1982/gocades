@@ -29,7 +29,7 @@ void CCadesVersion_destroy(CCadesVersion *m)
     free(m);
 }
 
-char* CCadesVersion_to_string(CCadesVersion_t *m)
+char* CCadesVersion_to_string(CCadesVersion *m)
 {
     CPPVersionObject *obj;
 
@@ -45,7 +45,7 @@ char* CCadesVersion_to_string(CCadesVersion_t *m)
     return (char*)sValue.GetString();
 }
 
-int CCadesVersion_get_major_version(CCadesVersion_t *m)
+int CCadesVersion_get_major_version(CCadesVersion *m)
 {
     CPPVersionObject *obj;
 
@@ -61,7 +61,7 @@ int CCadesVersion_get_major_version(CCadesVersion_t *m)
     return r;
 }
 
-int CCadesVersion_get_minor_version(CCadesVersion_t *m)
+int CCadesVersion_get_minor_version(CCadesVersion *m)
 {
     CPPVersionObject *obj;
 
@@ -77,7 +77,7 @@ int CCadesVersion_get_minor_version(CCadesVersion_t *m)
     return r;
 }
 
-int CCadesVersion_get_build_version(CCadesVersion_t *m)
+int CCadesVersion_get_build_version(CCadesVersion *m)
 {
     CPPVersionObject *obj;
 

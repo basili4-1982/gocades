@@ -1,0 +1,236 @@
+// string->void
+void CCadesAttribute_put_oid(CCadesAttribute *m, char* value)
+{
+    CPPCadesCPAttributeObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return;
+    }
+
+    obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
+    CAtlStringA sValue(value);
+    HRESULT hr = obj->put_OID(sValue);
+    ErrMsgFromHResult(hr, m->err);
+    return;
+}
+
+// void->object
+CCadesOID* CCadesAttribute_get_oid(CCadesAttribute *m)
+{
+    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPOIDObject> pObj;
+    HRESULT hr = reinterpret_cast<CPPCadesCPAttributeObject *>(m->obj)->get_OID(pObj);
+    ErrMsgFromHResult(hr, m->err);
+
+    CCadesOID *ret = CCadesOID_create();
+    ret->obj = (void*)pObj.get();
+
+    return ret;
+}
+
+// void->blob
+char* CCadesAttribute_get_value(CCadesAttribute *m)
+{
+    CPPCadesCPAttributeObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return 0;
+    }
+
+    obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
+    CryptoPro::CBlob blob;
+    HRESULT hr = obj->get_Value(blob);
+    CAtlString sValue((char*)blob.pbData(), blob.cbData());
+    ErrMsgFromHResult(hr, m->err);
+    return (char*)sValue.GetString();
+}
+
+// blob->void
+void CCadesAttribute_put_value(CCadesAttribute *m, char* value)
+{
+    CPPCadesCPAttributeObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return;
+    }
+
+    obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
+    CAtlStringA sValue(value);
+    CryptoPro::CBlob blob((const unsigned char *)sValue.GetBuffer(), sValue.GetLength());
+    HRESULT hr = obj->put_Value(blob);
+    ErrMsgFromHResult(hr, m->err);
+    return;
+}
+
+// int->void
+void CCadesAttribute_put_name(CCadesAttribute *m, int value)
+{
+    CPPCadesCPAttributeObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return;
+    }
+
+    obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
+    HRESULT hr = obj->put_Name((CADESCOM_ATTRIBUTE)value);
+    ErrMsgFromHResult(hr, m->err);
+    return;
+}
+
+// void->int
+int CCadesAttribute_get_build_version(CCadesAttribute *m)
+{
+    CPPCadesCPAttributeObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return 0;
+    }
+
+    obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
+    CADESCOM_ATTRIBUTE val;
+    HRESULT hr = obj->get_Name(&val);
+    DWORD r = (DWORD)val;
+    ErrMsgFromHResult(hr, m->err);
+    return r;
+}
+
+
+// govoid->goobject
+func (obj *GoCadesAttribute) GetOID() (*GoCadesOID, error) {
+	ret := &GoCadesOID{C.CCadesAttribute_get_oid(obj.cobjptr)}
+
+	runtime.SetFinalizer(ret, func(obj *GoCadesOID) {
+		C.CCadesOID_destroy(obj.cobjptr)
+	})
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return nil, errors.New(err)
+	}
+	return ret, nil
+}
+
+// gostring->govoid
+func (obj *GoCadesAbout) PutOID(value string) error {
+	cstr := C.CString(value)
+	defer C.free(unsafe.Pointer(cstr))
+	C.CCadesAttribute_put_oid(obj.cobjptr, cstr)
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return errors.New(err)
+	}
+	return nil
+}
+
+// govoid->gostring
+func (obj *GoCadesAttribute) GetValue() (string, error) {
+	var ret string
+	val := C.CCadesAttribute_get_value(obj.cobjptr)
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return "", errors.New(err)
+	}
+	ret = C.GoString(val)
+	return ret, nil
+}
+
+// goint->govoid
+func (obj *GoCadesAttribute) PutName(value int) error {
+	C.CCadesAttribute_put_name(obj.cobjptr, C.int(value))
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return errors.New(err)
+	}
+	return nil
+}
+
+// gostring->void
+func (obj *GoCadesAbout) PutOID(value string) error {
+	cstr := C.CString(value)
+	defer C.free(unsafe.Pointer(cstr))
+	C.CCadesAttribute_put_oid(obj.cobjptr, cstr)
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return errors.New(err)
+	}
+	return nil
+}
+
+// int->void
+CCadesAttribute* CCadesAttributes_get_item(CCadesAttributes *m, int value)
+{
+    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAttributeObject> pObj;
+    HRESULT hr = reinterpret_cast<CPPCadesCPAttributesObject *>(m->obj)->get_Item(value, pObj);
+    ErrMsgFromHResult(hr, m->err);
+
+    CCadesAttribute *ret = CCadesAttribute_create();
+    ret->obj = (void*)pObj.get();
+
+    return ret;
+}
+
+// object->void
+void CCadesAttributes_add(CCadesAttributes *m, CCadesAttribute *obj)
+{
+    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAttributeObject> pObj((CPPCadesCPAttributeObject*)obj->obj);
+    HRESULT hr = reinterpret_cast<CPPCadesCPAttributesObject *>(m->obj)->Add(pObj);
+    ErrMsgFromHResult(hr, m->err);
+    return;
+}
+
+// void->void
+void CCadesAttributes_add(CCadesAttributes *m)
+{
+    HRESULT hr = reinterpret_cast<CPPCadesCPAttributesObject *>(m->obj)->Clear();
+    ErrMsgFromHResult(hr, m->err);
+    return;
+}
+
+// govoid->goint
+func (obj *GoCadesAttributes) GetCount() (int, error) {
+	var ret int
+	val := C.CCadesAttributes_get_count(obj.cobjptr)
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return ret, errors.New(err)
+	}
+	ret = int(val)
+	return ret, nil
+}
+
+// goint->goobject
+func (obj *GoCadesAttributes) GetItem(value int) (*GoCadesAttribute, error) {
+	ret := &GoCadesAttribute{C.CCadesAttributes_get_item(obj.cobjptr, C.int(value))}
+
+	runtime.SetFinalizer(ret, func(obj *GoCadesAttribute) {
+		C.CCadesAttribute_destroy(obj.cobjptr)
+	})
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return nil, errors.New(err)
+	}
+	return ret, nil
+}
+
+// goobject->govoid
+func (obj *GoCadesAttributes) Add(value GoCadesAttribute) error {
+	C.CCadesAttributes_add(obj.cobjptr, value.cobjptr)
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return errors.New(err)
+	}
+	return nil
+}
+
+// govoid->govoid
+func (obj *GoCadesAttributes) Clear() error {
+	C.CCadesAttributes_clear(obj.cobjptr)
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return errors.New(err)
+	}
+	return nil
+}

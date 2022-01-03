@@ -47,7 +47,7 @@ char* CCadesOID_get_value(CCadesOID *m)
     return (char*)sValue->GetString();
 }
 
-void CCadesOID_set_value(CCadesOID_t *m, char* value)
+void CCadesOID_set_value(CCadesOID *m, char* value)
 {
     CPPCadesCPOIDObject *obj;
 
@@ -78,7 +78,7 @@ char* CCadesOID_get_friendly_name(CCadesOID *m)
     return (char*)sValue.GetString();
 }
 
-void CCadesOID_set_friendly_name(CCadesOID_t *m, char* szFriendlyName)
+void CCadesOID_set_friendly_name(CCadesOID *m, char* szFriendlyName)
 {
     CPPCadesCPOIDObject *obj;
 
@@ -94,7 +94,7 @@ void CCadesOID_set_friendly_name(CCadesOID_t *m, char* szFriendlyName)
     return;
 }
 
-int CCadesOID_get_name(CCadesOID_t *m)
+int CCadesOID_get_name(CCadesOID *m)
 {
     CPPCadesCPOIDObject *obj;
 
@@ -110,7 +110,7 @@ int CCadesOID_get_name(CCadesOID_t *m)
     return (int)r;
 }
 
-void CCadesOID_set_name(CCadesOID_t *m, int Name)
+void CCadesOID_set_name(CCadesOID *m, int Name)
 {
     CPPCadesCPOIDObject *obj;
 
