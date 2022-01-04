@@ -1,5 +1,5 @@
-#ifndef CCADESATTRIBUTES_H
-#define CCADESATTRIBUTES_H
+#ifndef CCADESEKUS_H
+#define CCADESEKUS_H
 
 #include "CCadesEKU.h"
 #ifdef __cplusplus
@@ -23,4 +23,4 @@ CCadesEKU* CCadesEKUs_get_item(CCadesEKUs *m, int value);
 }
 #endif
 
-#endif /* __CCADESATTRIBUTES_H__ */
+#endif /* __CCADESEKUS_H__ */

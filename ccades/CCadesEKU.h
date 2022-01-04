@@ -1,5 +1,5 @@
-#ifndef CCADESLICENSE_H
-#define CCADESLICENSE_H
+#ifndef CCADESEKU_H
+#define CCADESEKU_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,4 +24,4 @@ void CCadesEKU_put_oid(CCadesEKU *m, char* value);
 }
 #endif
 
-#endif /* __CCADESLICENSE_H__ */
+#endif /* __CCADESEKU_H__ */
