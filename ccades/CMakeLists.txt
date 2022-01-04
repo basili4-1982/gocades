@@ -9,6 +9,7 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesEKU.cpp
             CCadesEKUs.cpp
             CCadesExtendedKeyUsage.cpp
+            CCadesKeyUsage.cpp
             CCadesLicense.cpp
             CCadesVersion.cpp
             CCadesOID.cpp
