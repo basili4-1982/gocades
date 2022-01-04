@@ -4,6 +4,7 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesAbout.cpp
             CCadesAttribute.cpp
             CCadesAttributes.cpp
+            CCadesBasicConstraints.cpp
             CCadesCRL.cpp
             CCadesLicense.cpp
             CCadesVersion.cpp

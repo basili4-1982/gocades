@@ -316,3 +316,42 @@ char* CCadesCRL_get_this_update(CCadesCRL *m)
     ErrMsgFromHResult(hr, m->err);
     return (char*)sValue.GetString();
 }
+
+// void->bool
+bool CCadesBasicConstraints_get_is_present(CCadesBasicConstraints *m)
+{
+    CPPCadesCPBasicConstraintsObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return 0;
+    }
+
+    obj = static_cast<CPPCadesCPBasicConstraintsObject *>(m->obj);
+    BOOL res;
+    HRESULT hr = obj->get_IsPresent(&res);
+    ErrMsgFromHResult(hr, m->err);
+    return res;
+}
+
+// govoid->gobool
+func (obj *GoCadesBasicConstraints) GetIsPresent() (bool, error) {
+	var ret bool
+	val := C.CCadesBasicConstraints_get_is_present(obj.cobjptr)
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return ret, errors.New(err)
+	}
+	ret = bool(val)
+	return ret, nil
+}
+
+// gobool->govoid
+func (obj *GoCadesBasicConstraints) SetIsPresent(value bool) error {
+	C.CCadesBasicConstraints_put_is_present(obj.cobjptr, C.bool(value))
+	err := C.GoString(obj.cobjptr.err)
+	if err != "" {
+		return errors.New(err)
+	}
+	return nil
+}
