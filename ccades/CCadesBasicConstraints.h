@@ -1,5 +1,5 @@
-#ifndef CCADESLICENSE_H
-#define CCADESLICENSE_H
+#ifndef CCADESBASICCONSTRAINTS_H
+#define CCADESBASICCONSTRAINTS_H
 
 #include <stdbool.h>
 #ifdef __cplusplus
@@ -28,4 +28,4 @@ int CCadesBasicConstraints_get_path_len_constraint(CCadesBasicConstraints *m);
 }
 #endif
 
-#endif /* __CCADESLICENSE_H__ */
+#endif /* __CCADESBASICCONSTRAINTS_H__ */
