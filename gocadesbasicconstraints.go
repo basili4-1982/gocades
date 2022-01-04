@@ -10,24 +10,10 @@ import "C"
 
 import (
 	"errors"
-	"runtime"
 )
 
 type GoCadesBasicConstraints struct {
 	cobjptr *C.CCadesBasicConstraints
-}
-
-func BasicConstraints() (*GoCadesBasicConstraints, error) {
-	result := C.CCadesBasicConstraints_create()
-	ret := &GoCadesBasicConstraints{result}
-	runtime.SetFinalizer(ret, func(obj *GoCadesBasicConstraints) {
-		C.CCadesBasicConstraints_destroy(obj.cobjptr)
-	})
-	err := C.GoString(result.err)
-	if err != "" {
-		return nil, errors.New(err)
-	}
-	return ret, nil
 }
 
 func (obj *GoCadesBasicConstraints) GetIsPresent() (bool, error) {
