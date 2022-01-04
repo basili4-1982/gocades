@@ -7,6 +7,7 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesBasicConstraints.cpp
             CCadesCRL.cpp
             CCadesEKU.cpp
+            CCadesEKUs.cpp
             CCadesLicense.cpp
             CCadesVersion.cpp
             CCadesOID.cpp
