@@ -160,16 +160,19 @@ func (obj *GoCadesAbout) PutOID(value string) error {
 }
 
 // int->void
-CCadesAttribute* CCadesAttributes_get_item(CCadesAttributes *m, int value)
+void CCadesEKU_put_name(CCadesEKU *m, int value)
 {
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAttributeObject> pObj;
-    HRESULT hr = reinterpret_cast<CPPCadesCPAttributesObject *>(m->obj)->get_Item(value, pObj);
+    CPPCadesEKUObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return;
+    }
+
+    obj = static_cast<CPPCadesEKUObject *>(m->obj);
+    HRESULT hr = obj->put_Name((CAPICOM_EKU)value);
     ErrMsgFromHResult(hr, m->err);
-
-    CCadesAttribute *ret = CCadesAttribute_create();
-    ret->obj = (void*)pObj.get();
-
-    return ret;
+    return;
 }
 
 // object->void
