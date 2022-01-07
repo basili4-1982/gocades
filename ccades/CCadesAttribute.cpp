@@ -76,7 +76,6 @@ char* CCadesAttribute_get_value(CCadesAttribute *m)
     char *buf = (char*)calloc(blob.cbData() + 1, sizeof(char));
     memcpy(buf, blob.pbData(), blob.cbData());
     ErrMsgFromHResult(hr, m->err);
-    //std::cout << buf << std::endl;
     return buf;
 }
 

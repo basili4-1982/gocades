@@ -259,6 +259,27 @@ char* CCadesCRL_export(CCadesCRL *m, int value)
     return buf;
 }
 
+// int->string
+char* CCadesEncodedData_get_value(CCadesEncodedData *m, int value)
+{
+    CPPCadesCPEncodedDataObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return 0;
+    }
+
+    obj = static_cast<CPPCadesCPEncodedDataObject *>(m->obj);
+    CryptoPro::CBlob blob;
+    HRESULT hr = obj->get_Value((CAPICOM_ENCODING_TYPE)value, blob);
+    CAtlString sValue(blob.pbData());
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
+    ErrMsgFromHResult(hr, m->err);
+    return buf;
+}
+
+
 // goint->gostring
 func (obj *GoCadesAbout) GetCSPName(ProvType int) (string, error) {
 	var ret string
@@ -382,4 +403,21 @@ func (obj *GoCadesBasicConstraints) SetIsPresent(value bool) error {
 		return errors.New(err)
 	}
 	return nil
+}
+
+// bool->void
+void CCadesPrivateKey_set_cache(CCadesPrivateKey *m, bool value)
+{
+    CPPCadesCPPrivateKeyObject *obj;
+
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        return;
+    }
+
+    obj = static_cast<CPPCadesCPPrivateKeyObject *>(m->obj);
+    DWORD r = value ? TRUE : FALSE;
+    HRESULT hr = obj->set_CachePin(r);
+    ErrMsgFromHResult(hr, m->err);
+    return;
 }

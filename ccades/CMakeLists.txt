@@ -12,6 +12,7 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesExtendedKeyUsage.cpp
             CCadesKeyUsage.cpp
             CCadesLicense.cpp
+            CCadesPrivateKey.cpp
             CCadesPublicKey.cpp
             CCadesVersion.cpp
             CCadesOID.cpp
