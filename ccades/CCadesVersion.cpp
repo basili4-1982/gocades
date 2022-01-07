@@ -41,8 +41,10 @@ char* CCadesVersion_to_string(CCadesVersion *m)
     obj = static_cast<CPPVersionObject *>(m->obj);
     CAtlString sValue;
     HRESULT hr = obj->toString(sValue);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 int CCadesVersion_get_major_version(CCadesVersion *m)

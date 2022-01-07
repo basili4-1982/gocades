@@ -69,5 +69,5 @@ func TestCRL(t *testing.T) {
 	crl.GetNextUpdate()
 	crl.GetThumbprint()
 	crl.GetAuthKeyID()
-	//crl.Export(CADESCOM_ENCODE_BASE64)
+	crl.Export(CADESCOM_ENCODE_BASE64)
 }

@@ -34,6 +34,7 @@ func License() (*GoCadesLicense, error) {
 func (obj *GoCadesLicense) GetCompanyName(value int) (string, error) {
 	var ret string
 	val := C.CCadesLicense_get_company_name(obj.cobjptr, C.int(value))
+	defer C.free(unsafe.Pointer(val))
 	err := C.GoString(obj.cobjptr.err)
 	if err != "" {
 		return "", errors.New(err)
@@ -45,6 +46,7 @@ func (obj *GoCadesLicense) GetCompanyName(value int) (string, error) {
 func (obj *GoCadesLicense) GetFirstInstallDate(value int) (string, error) {
 	var ret string
 	val := C.CCadesLicense_get_first_install_date(obj.cobjptr, C.int(value))
+	defer C.free(unsafe.Pointer(val))
 	err := C.GoString(obj.cobjptr.err)
 	if err != "" {
 		return "", errors.New(err)
@@ -56,6 +58,7 @@ func (obj *GoCadesLicense) GetFirstInstallDate(value int) (string, error) {
 func (obj *GoCadesLicense) GetSerialNumber(value int) (string, error) {
 	var ret string
 	val := C.CCadesLicense_get_serial_number(obj.cobjptr, C.int(value))
+	defer C.free(unsafe.Pointer(val))
 	err := C.GoString(obj.cobjptr.err)
 	if err != "" {
 		return "", errors.New(err)
@@ -67,6 +70,7 @@ func (obj *GoCadesLicense) GetSerialNumber(value int) (string, error) {
 func (obj *GoCadesLicense) GetType(value int) (string, error) {
 	var ret string
 	val := C.CCadesLicense_get_type(obj.cobjptr, C.int(value))
+	defer C.free(unsafe.Pointer(val))
 	err := C.GoString(obj.cobjptr.err)
 	if err != "" {
 		return "", errors.New(err)
@@ -78,6 +82,7 @@ func (obj *GoCadesLicense) GetType(value int) (string, error) {
 func (obj *GoCadesLicense) GetValidTo(value int) (string, error) {
 	var ret string
 	val := C.CCadesLicense_get_valid_to(obj.cobjptr, C.int(value))
+	defer C.free(unsafe.Pointer(val))
 	err := C.GoString(obj.cobjptr.err)
 	if err != "" {
 		return "", errors.New(err)

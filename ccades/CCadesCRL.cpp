@@ -58,11 +58,13 @@ char* CCadesCRL_export(CCadesCRL *m, int value)
     }
 
     obj = static_cast<CPPCadesCPCRLObject *>(m->obj);
+
     CryptoPro::CBlob blob;
     HRESULT hr = obj->Export((CAPICOM_ENCODING_TYPE)value, blob);
-    CAtlString sValue((char *)blob.pbData(), blob.cbData());
+    char *buf = (char*)calloc(blob.cbData() + 1, sizeof(char));
+    memcpy(buf, blob.pbData(), blob.cbData());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 
@@ -78,8 +80,10 @@ char* CCadesCRL_get_issuer_name(CCadesCRL *m)
     obj = static_cast<CPPCadesCPCRLObject *>(m->obj);
     CAtlString sValue;
     HRESULT hr = obj->get_IssuerName(sValue);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 char* CCadesCRL_get_this_update(CCadesCRL *m)
@@ -95,8 +99,10 @@ char* CCadesCRL_get_this_update(CCadesCRL *m)
     CryptoPro::CDateTime d;
     HRESULT hr = obj->get_ThisUpdate(d);
     CAtlString sValue = d.tostring().c_str();
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 char* CCadesCRL_get_next_update(CCadesCRL *m)
@@ -112,8 +118,10 @@ char* CCadesCRL_get_next_update(CCadesCRL *m)
     CryptoPro::CDateTime d;
     HRESULT hr = obj->get_NextUpdate(d);
     CAtlString sValue = d.tostring().c_str();
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 char* CCadesCRL_get_thumbprint(CCadesCRL *m)
@@ -128,8 +136,10 @@ char* CCadesCRL_get_thumbprint(CCadesCRL *m)
     obj = static_cast<CPPCadesCPCRLObject *>(m->obj);
     CAtlString sValue;
     HRESULT hr = obj->get_Thumbprint(sValue);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 char* CCadesCRL_get_auth_key_id(CCadesCRL *m)
@@ -144,6 +154,8 @@ char* CCadesCRL_get_auth_key_id(CCadesCRL *m)
     obj = static_cast<CPPCadesCPCRLObject *>(m->obj);
     CAtlString sValue;
     HRESULT hr = obj->get_AuthKeyID(sValue);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }

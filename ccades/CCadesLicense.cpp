@@ -43,8 +43,10 @@ char* CCadesLicense_get_company_name(CCadesLicense *m, int value)
     obj = static_cast<CPPCadesCPLicenseObject *>(m->obj);
     CAtlString sValue;
     HRESULT hr = obj->CompanyName(value, sValue);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 char* CCadesLicense_get_first_install_date(CCadesLicense *m, int value)
@@ -59,8 +61,10 @@ char* CCadesLicense_get_first_install_date(CCadesLicense *m, int value)
     obj = static_cast<CPPCadesCPLicenseObject *>(m->obj);
     CAtlString sValue;
     HRESULT hr = obj->FirstInstallDate(value, sValue);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 char* CCadesLicense_get_serial_number(CCadesLicense *m, int value)
@@ -75,8 +79,10 @@ char* CCadesLicense_get_serial_number(CCadesLicense *m, int value)
     obj = static_cast<CPPCadesCPLicenseObject *>(m->obj);
     CAtlString sValue;
     HRESULT hr = obj->SerialNumber(value, sValue);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 char* CCadesLicense_get_type(CCadesLicense *m, int value)
@@ -91,8 +97,10 @@ char* CCadesLicense_get_type(CCadesLicense *m, int value)
     obj = static_cast<CPPCadesCPLicenseObject *>(m->obj);
     CAtlString sValue;
     HRESULT hr = obj->Type(value, sValue);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 char* CCadesLicense_get_valid_to(CCadesLicense *m, int value)
@@ -107,8 +115,10 @@ char* CCadesLicense_get_valid_to(CCadesLicense *m, int value)
     obj = static_cast<CPPCadesCPLicenseObject *>(m->obj);
     CAtlString sValue;
     HRESULT hr = obj->ValidTo(value, sValue);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 void CCadesLicense_set_license(CCadesLicense *m, char* value1, char* value2, char* value3)

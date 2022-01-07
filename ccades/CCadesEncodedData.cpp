@@ -44,8 +44,10 @@ char* CCadesEncodedData_format(CCadesEncodedData *m, bool value)
     CAtlStringW sValueW;
     HRESULT hr = obj->Format(value, sValueW);
     CAtlString sValue = CAtlString(sValueW);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 char* CCadesEncodedData_get_value(CCadesEncodedData *m, int value)
@@ -61,6 +63,8 @@ char* CCadesEncodedData_get_value(CCadesEncodedData *m, int value)
     CryptoPro::CBlob blob;
     HRESULT hr = obj->get_Value((CAPICOM_ENCODING_TYPE)value, blob);
     CAtlString sValue(blob.pbData());
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }

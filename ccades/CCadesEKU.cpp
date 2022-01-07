@@ -75,8 +75,10 @@ char* CCadesEKU_get_oid(CCadesEKU *m)
     obj = static_cast<CPPCadesCPEKUObject *>(m->obj);
     CAtlString sValue;
     HRESULT hr = obj->get_OID(sValue);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 void CCadesEKU_put_oid(CCadesEKU *m, char* value)

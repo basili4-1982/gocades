@@ -40,6 +40,7 @@ func (obj *GoCadesEKU) SetName(value int) error {
 func (obj *GoCadesEKU) GetOID() (string, error) {
 	var ret string
 	val := C.CCadesEKU_get_oid(obj.cobjptr)
+	defer C.free(unsafe.Pointer(val))
 	err := C.GoString(obj.cobjptr.err)
 	if err != "" {
 		return "", errors.New(err)

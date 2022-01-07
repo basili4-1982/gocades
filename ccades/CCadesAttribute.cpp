@@ -73,9 +73,11 @@ char* CCadesAttribute_get_value(CCadesAttribute *m)
     obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
     CryptoPro::CBlob blob;
     HRESULT hr = obj->get_Value(blob);
-    CAtlString sValue((char*)blob.pbData(), blob.cbData());
+    char *buf = (char*)calloc(blob.cbData() + 1, sizeof(char));
+    memcpy(buf, blob.pbData(), blob.cbData());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    //std::cout << buf << std::endl;
+    return buf;
 }
 
 void CCadesAttribute_put_value(CCadesAttribute *m, char* value)

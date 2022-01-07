@@ -19,6 +19,7 @@ type GoCadesOID struct {
 func (obj *GoCadesOID) GetFriendlyName() (string, error) {
 	var ret string
 	val := C.CCadesOID_get_friendly_name(obj.cobjptr)
+	defer C.free(unsafe.Pointer(val))
 	err := C.GoString(obj.cobjptr.err)
 	if err != "" {
 		return "", errors.New(err)
@@ -41,6 +42,7 @@ func (obj *GoCadesOID) SetFriendlyName(FriendlyName string) error {
 func (obj *GoCadesOID) GetValue() (string, error) {
 	var ret string
 	val := C.CCadesOID_get_value(obj.cobjptr)
+	defer C.free(unsafe.Pointer(val))
 	err := C.GoString(obj.cobjptr.err)
 	if err != "" {
 		return "", errors.New(err)

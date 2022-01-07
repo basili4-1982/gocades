@@ -43,8 +43,10 @@ char* CCadesOID_get_value(CCadesOID *m)
     obj = static_cast<CPPCadesCPOIDObject *>(m->obj);
     boost::shared_ptr<CAtlStringA> sValue;
     HRESULT hr = obj->get_Value(sValue);
+    char *buf = (char*)calloc(sValue->GetLength(), sizeof(char));
+    memcpy(buf, sValue->GetBuffer(), sValue->GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue->GetString();
+    return buf;
 }
 
 void CCadesOID_set_value(CCadesOID *m, char* value)
@@ -74,8 +76,10 @@ char* CCadesOID_get_friendly_name(CCadesOID *m)
     obj = static_cast<CPPCadesCPOIDObject *>(m->obj);
     CAtlString sValue;
     HRESULT hr = obj->get_FriendlyName(sValue);
+    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    return buf;
 }
 
 void CCadesOID_set_friendly_name(CCadesOID *m, char* szFriendlyName)

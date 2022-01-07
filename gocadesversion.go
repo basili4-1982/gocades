@@ -3,10 +3,14 @@ package gocades
 /*
 #cgo CFLAGS: -I${SRCDIR}/ccades
 #cgo LDFLAGS: -L${SRCDIR}/ccades -Wl,-rpath=${SRCDIR}/ccades -lccades
+#include <stdlib.h>
 #include "CCadesVersion.h"
 */
 import "C"
-import "errors"
+import (
+	"errors"
+	"unsafe"
+)
 
 type GoCadesVersion struct {
 	cobjptr *C.CCadesVersion
@@ -15,6 +19,7 @@ type GoCadesVersion struct {
 func (obj *GoCadesVersion) ToString() (string, error) {
 	var ret string
 	val := C.CCadesVersion_to_string(obj.cobjptr)
+	defer C.free(unsafe.Pointer(val))
 	err := C.GoString(obj.cobjptr.err)
 	if err != "" {
 		return "", errors.New(err)
