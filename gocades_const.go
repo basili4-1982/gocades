@@ -35,6 +35,12 @@ const (
 	CAPICOM_CERTIFICATE_INCLUDE_END_ENTITY_ONLY           = 2          //Сохраняет только сертификат конечного пользователя.
 	CAPICOM_CERT_INFO_SUBJECT_SIMPLE_NAME                 = 0          //Возвращает имя наименования сертификата.
 	CAPICOM_CERT_INFO_ISSUER_SIMPLE_NAME                  = 1          //Возвращает имя издателя сертификата.
+	CAPICOM_CERT_INFO_SUBJECT_EMAIL_NAME                  = 2          //Возвращает имя издателя сертификата.
+	CAPICOM_CERT_INFO_ISSUER_EMAIL_NAME                   = 3          //Возвращает имя издателя сертификата.
+	CAPICOM_CERT_INFO_SUBJECT_UPN                         = 4          //Возвращает имя издателя сертификата.
+	CAPICOM_CERT_INFO_ISSUER_UPN                          = 5          //Возвращает имя издателя сертификата.
+	CAPICOM_CERT_INFO_SUBJECT_DNS_NAME                    = 6          //Возвращает имя издателя сертификата.
+	CAPICOM_CERT_INFO_ISSUER_DNS_NAME                     = 6          //Возвращает имя издателя сертификата.
 	CAPICOM_CERTIFICATE_FIND_SHA1_HASH                    = 0          //Возвращает сертификаты соответствующие указанному хэшу SHA1.
 	CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME                 = 1          //Возвращает сертификаты, наименование которого точно или частично совпадает с указанным.
 	CAPICOM_CERTIFICATE_FIND_ISSUER_NAME                  = 2          //Возвращает сертификаты, наименование издателя которого точно или частично совпадает с указанным.

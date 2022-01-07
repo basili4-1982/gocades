@@ -62,9 +62,8 @@ char* CCadesEncodedData_get_value(CCadesEncodedData *m, int value)
     obj = static_cast<CPPCadesCPEncodedDataObject *>(m->obj);
     CryptoPro::CBlob blob;
     HRESULT hr = obj->get_Value((CAPICOM_ENCODING_TYPE)value, blob);
-    CAtlString sValue(blob.pbData());
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
-    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
+    char *buf = (char*)calloc(blob.cbData() + 1, sizeof(char));
+    memcpy(buf, blob.pbData(), blob.cbData());
     ErrMsgFromHResult(hr, m->err);
     return buf;
 }

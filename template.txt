@@ -260,19 +260,18 @@ char* CCadesCRL_export(CCadesCRL *m, int value)
 }
 
 // int->string
-char* CCadesEncodedData_get_value(CCadesEncodedData *m, int value)
+char* CCadesCertificate_get_value(CCadesCertificate *m, int value)
 {
-    CPPCadesCPEncodedDataObject *obj;
+    CPPCadesCPCertificateObject *obj;
 
     if (m == NULL){
         ErrMsgFromHResult(E_UNEXPECTED, m->err);
         return 0;
     }
 
-    obj = static_cast<CPPCadesCPEncodedDataObject *>(m->obj);
-    CryptoPro::CBlob blob;
-    HRESULT hr = obj->get_Value((CAPICOM_ENCODING_TYPE)value, blob);
-    CAtlString sValue(blob.pbData());
+    obj = static_cast<CPPCadesCPCertificateObject *>(m->obj);
+    CAtlString sValue;
+    HRESULT hr = obj->get_Value((CAPICOM_CERT_INFO_TYPE)value, sValue);
     char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, m->err);
@@ -281,9 +280,9 @@ char* CCadesEncodedData_get_value(CCadesEncodedData *m, int value)
 
 
 // goint->gostring
-func (obj *GoCadesAbout) GetCSPName(ProvType int) (string, error) {
+func (obj *GoCadesAbout) GetCSPName(value int) (string, error) {
 	var ret string
-	val := C.CCadesAbout_get_csp_name(obj.cobjptr, C.int(ProvType))
+	val := C.CCadesAbout_get_csp_name(obj.cobjptr, C.int(value))
 	defer C.free(unsafe.Pointer(val))
 	err := C.GoString(obj.cobjptr.err)
 	if err != "" {
@@ -291,24 +290,6 @@ func (obj *GoCadesAbout) GetCSPName(ProvType int) (string, error) {
 	}
 	ret = C.GoString(val)
 	return ret, nil
-}
-
-// int->blob
-char* CCadesCRL_export(CCadesCRL *m, int value)
-{
-    CPPCadesCPCRLObject *obj;
-
-    if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
-        return 0;
-    }
-
-    obj = static_cast<CPPCadesCPCRLObject *>(m->obj);
-    CryptoPro::CBlob blob;
-    HRESULT hr = obj->Export((CAPICOM_ENCODING_TYPE)value, blob);
-    CAtlString sValue(blob.pbData());
-    ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
 }
 
 // void->blob

@@ -5,6 +5,8 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesAttribute.cpp
             CCadesAttributes.cpp
             CCadesBasicConstraints.cpp
+            CCadesCertificate.cpp
+            CCadesCertificateStatus.cpp
             CCadesCRL.cpp
             CCadesEKU.cpp
             CCadesEKUs.cpp
