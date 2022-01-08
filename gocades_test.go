@@ -1,7 +1,6 @@
 package gocades
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -56,7 +55,6 @@ func TestOID(t *testing.T) {
 
 func TestLicense(t *testing.T) {
 	license, _ := License()
-	license.SetLicense("5050EF301001FCZCT9M0HNAUV", "UserName", "CompanyName")
 	license.GetCompanyName(0)
 	license.GetFirstInstallDate(0)
 	license.GetSerialNumber(0)
@@ -180,6 +178,6 @@ func TestEncodedData(t *testing.T) {
 	certificate.Import(Cert)
 	publickey, _ := certificate.GetPublicKey()
 	encodeddata, _ := publickey.GetEncodedKey()
-	fmt.Println(encodeddata.Format(true))
-	fmt.Println(encodeddata.GetValue(CADESCOM_ENCODE_BASE64))
+	encodeddata.Format(true)
+	encodeddata.GetValue(CADESCOM_ENCODE_BASE64)
 }
