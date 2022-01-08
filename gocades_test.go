@@ -181,3 +181,28 @@ func TestEncodedData(t *testing.T) {
 	encodeddata.Format(true)
 	encodeddata.GetValue(CADESCOM_ENCODE_BASE64)
 }
+
+func TestStore(t *testing.T) {
+	store, _ := Store()
+	store.Open(CADESCOM_MEMORY_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
+	store.GetCertificates()
+	store.GetLocation()
+	store.GetName()
+	cert, _ := Certificate()
+	cert.Import(Cert)
+	store.Add(*cert)
+	crl, _ := CRL()
+	crl.Import(Crl)
+	store.AddCRL(*crl)
+	store.Close()
+}
+
+func TestCertificates(t *testing.T) {
+	store, _ := Store()
+	store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
+	certificates, _ := store.GetCertificates()
+	certificates.GetCount()
+	certificates.GetItem(1)
+	certs2, _ := certificates.Find(CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME, "test", true)
+	certs2.GetCount()
+}

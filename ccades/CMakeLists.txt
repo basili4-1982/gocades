@@ -17,6 +17,7 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesLicense.cpp
             CCadesPrivateKey.cpp
             CCadesPublicKey.cpp
+            CCadesStore.cpp
             CCadesVersion.cpp
             CCadesOID.cpp
             errormsg.cpp

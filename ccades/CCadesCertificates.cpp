@@ -12,11 +12,11 @@ using namespace CryptoPro::PKI::CAdES;
 CCadesCertificates *CCadesCertificates_create()
 {
     CCadesCertificates *m;
-    CPPCadesCPCertificateObject *obj;
+    CPPCadesCPCertificatesObject *obj;
     char *err;
 
     m = (typeof(m))malloc(sizeof(*m));
-    obj = new CPPCadesCPCertificateObject();
+    obj = new CPPCadesCPCertificatesObject();
     err = (typeof(err))calloc(ERR_MAX_SIZE, sizeof(char));
     m->obj = obj;
     m->err = err;
@@ -28,7 +28,7 @@ void CCadesCertificates_destroy(CCadesCertificates *m)
 {
     if (m == NULL)
         return;
-    delete static_cast<CPPCadesCPCertificateObject *>(m->obj);
+    delete static_cast<CPPCadesCPCertificatesObject *>(m->obj);
     free(m->err);
     free(m);
 }
