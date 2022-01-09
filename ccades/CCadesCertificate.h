@@ -12,16 +12,13 @@
 extern "C" {
 #endif
 
-struct CCadesCertificate_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesCertificate_t;
 typedef struct CCadesCertificate_t CCadesCertificate;
 
 CCadesCertificate *CCadesCertificate_create();
 void CCadesCertificate_destroy(CCadesCertificate *m);
+char* CCadesCertificate_error(CCadesCertificate *m);
+
 char* CCadesCertificate_get_info(CCadesCertificate *m, int value);
 bool CCadesCertificate_has_private_key(CCadesCertificate *m);
 CCadesCertificateStatus* CCadesCertificate_is_valid(CCadesCertificate *m);

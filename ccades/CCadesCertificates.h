@@ -6,16 +6,13 @@
 extern "C" {
 #endif
 
-struct CCadesCertificates_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesCertificates_t;
 typedef struct CCadesCertificates_t CCadesCertificates;
 
 CCadesCertificates *CCadesCertificates_create();
 void CCadesCertificates_destroy(CCadesCertificates *m);
+char* CCadesCertificates_error(CCadesCertificates *m);
+
 int CCadesCertificates_get_count(CCadesCertificates *m);
 CCadesCertificate* CCadesCertificates_get_item(CCadesCertificates *m, int value);
 CCadesCertificates* CCadesCertificates_find_s(CCadesCertificates *m, int FindType, char* Criteria, bool bValidOnly);

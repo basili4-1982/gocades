@@ -21,7 +21,7 @@ type GoCadesCertificates struct {
 func (obj *GoCadesCertificates) GetCount() (int, error) {
 	var ret int
 	val := C.CCadesCertificates_get_count(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificates_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -35,7 +35,7 @@ func (obj *GoCadesCertificates) GetItem(value int) (*GoCadesCertificate, error) 
 	runtime.SetFinalizer(ret, func(obj *GoCadesCertificate) {
 		C.CCadesCertificate_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificates_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -47,10 +47,10 @@ func (obj *GoCadesCertificates) Find(value int, criteria string, validonly bool)
 	defer C.free(unsafe.Pointer(cstr))
 	ret := &GoCadesCertificates{C.CCadesCertificates_find_s(obj.cobjptr, C.int(value), cstr, C.bool(validonly))}
 
-	runtime.SetFinalizer(ret, func(obj *GoCadesCertificate) {
-		C.CCadesCertificate_destroy(obj.cobjptr)
+	runtime.SetFinalizer(ret, func(obj *GoCadesCertificates) {
+		C.CCadesCertificates_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificates_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}

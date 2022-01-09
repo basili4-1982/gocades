@@ -24,7 +24,7 @@ func Certificate() (*GoCadesCertificate, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesCertificate) {
 		C.CCadesCertificate_destroy(obj.cobjptr)
 	})
-	err := C.GoString(result.err)
+	err := C.GoString(C.CCadesCertificate_error(ret.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -35,7 +35,7 @@ func (obj *GoCadesCertificate) Import(value string) error {
 	cstr := C.CString(value)
 	defer C.free(unsafe.Pointer(cstr))
 	C.CCadesCertificate_import(obj.cobjptr, cstr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -46,7 +46,7 @@ func (obj *GoCadesCertificate) Export(encoding int) (string, error) {
 	var ret string
 	val := C.CCadesCertificate_export(obj.cobjptr, C.int(encoding))
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -58,7 +58,7 @@ func (obj *GoCadesCertificate) GetInfo(value int) (string, error) {
 	var ret string
 	val := C.CCadesCertificate_get_info(obj.cobjptr, C.int(value))
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -69,7 +69,7 @@ func (obj *GoCadesCertificate) GetInfo(value int) (string, error) {
 func (obj *GoCadesCertificate) HasPrivateKey() (bool, error) {
 	var ret bool
 	val := C.CCadesCertificate_has_private_key(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -83,7 +83,7 @@ func (obj *GoCadesCertificate) IsValid() (*GoCadesCertificateStatus, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesCertificateStatus) {
 		C.CCadesCertificateStatus_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -96,7 +96,7 @@ func (obj *GoCadesCertificate) GetBasicConstraints() (*GoCadesBasicConstraints, 
 	runtime.SetFinalizer(ret, func(obj *GoCadesBasicConstraints) {
 		C.CCadesBasicConstraints_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -109,7 +109,7 @@ func (obj *GoCadesCertificate) GetExtendedKeyUsage() (*GoCadesExtendedKeyUsage, 
 	runtime.SetFinalizer(ret, func(obj *GoCadesExtendedKeyUsage) {
 		C.CCadesExtendedKeyUsage_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -122,7 +122,7 @@ func (obj *GoCadesCertificate) GetKeyUsage() (*GoCadesKeyUsage, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesKeyUsage) {
 		C.CCadesKeyUsage_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -135,7 +135,7 @@ func (obj *GoCadesCertificate) GetPrivateKey() (*GoCadesPrivateKey, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesPrivateKey) {
 		C.CCadesPrivateKey_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -148,7 +148,7 @@ func (obj *GoCadesCertificate) GetPublicKey() (*GoCadesPublicKey, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesPublicKey) {
 		C.CCadesPublicKey_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -159,7 +159,7 @@ func (obj *GoCadesCertificate) GetSerialNumber() (string, error) {
 	var ret string
 	val := C.CCadesCertificate_get_serial_number(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -171,7 +171,7 @@ func (obj *GoCadesCertificate) GetIssuerName() (string, error) {
 	var ret string
 	val := C.CCadesCertificate_get_issuer_name(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -183,7 +183,7 @@ func (obj *GoCadesCertificate) GetSubjectName() (string, error) {
 	var ret string
 	val := C.CCadesCertificate_get_subject_name(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -195,7 +195,7 @@ func (obj *GoCadesCertificate) GetThumbprint() (string, error) {
 	var ret string
 	val := C.CCadesCertificate_get_thumbprint(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -206,7 +206,7 @@ func (obj *GoCadesCertificate) GetThumbprint() (string, error) {
 func (obj *GoCadesCertificate) GetVersion() (int, error) {
 	var ret int
 	val := C.CCadesCertificate_get_version(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -218,7 +218,7 @@ func (obj *GoCadesCertificate) GetValidToDate() (string, error) {
 	var ret string
 	val := C.CCadesCertificate_get_valid_to_date(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -230,7 +230,7 @@ func (obj *GoCadesCertificate) GetValidFromDate() (string, error) {
 	var ret string
 	val := C.CCadesCertificate_get_valid_from_date(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -240,7 +240,7 @@ func (obj *GoCadesCertificate) GetValidFromDate() (string, error) {
 
 func (obj *GoCadesCertificate) FindPrivateKey() error {
 	C.CCadesCertificate_find_private_key(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificate_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}

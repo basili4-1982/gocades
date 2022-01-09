@@ -5,6 +5,17 @@
 
 using namespace CryptoPro::PKI::CAdES;
 
+struct CCadesCertificates_t
+{
+    boost::shared_ptr<CPPCadesCPCertificatesObject> obj;
+    char *err;
+};
+struct CCadesCertificate_t
+{
+    boost::shared_ptr<CPPCadesCPCertificateObject> obj;
+    char *err;
+};
+
 CCadesStore *CCadesStore_create()
 {
     CCadesStore *m;
@@ -55,7 +66,7 @@ void CCadesStore_close(CCadesStore *m)
 
 void CCadesStore_add(CCadesStore *m, CCadesCertificate *obj)
 {
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificateObject> pObj((CPPCadesCPCertificateObject*)obj->obj);
+    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificateObject> pObj(obj->obj);
     HRESULT hr = reinterpret_cast<CPPCadesCPStoreObject *>(m->obj)->Add(pObj);
     ErrMsgFromHResult(hr, m->err);
     return;
@@ -76,7 +87,7 @@ CCadesCertificates* CCadesStore_get_certificates(CCadesStore *m)
 
     ErrMsgFromHResult(hr, m->err);
     CCadesCertificates *ret = CCadesCertificates_create();
-    ret->obj = (void*)pObj.get();
+    ret->obj = pObj;
 
     return ret;
 }

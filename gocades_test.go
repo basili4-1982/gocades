@@ -202,7 +202,8 @@ func TestCertificates(t *testing.T) {
 	store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
 	certificates, _ := store.GetCertificates()
 	certificates.GetCount()
-	certificates.GetItem(1)
+	cert, _ := certificates.GetItem(1)
+	cert.GetSubjectName()
 	certs2, _ := certificates.Find(CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME, "test", true)
 	certs2.GetCount()
 }
