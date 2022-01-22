@@ -5,16 +5,13 @@
 extern "C" {
 #endif
 
-struct CCadesLicense_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesLicense_t;
 typedef struct CCadesLicense_t CCadesLicense;
 
 CCadesLicense *CCadesLicense_create();
 void CCadesLicense_destroy(CCadesLicense *m);
+char* CCadesLicense_error(CCadesLicense *m);
+
 char* CCadesLicense_get_company_name(CCadesLicense *m, int value);
 char* CCadesLicense_get_first_install_date(CCadesLicense *m, int value);
 char* CCadesLicense_get_serial_number(CCadesLicense *m, int value);

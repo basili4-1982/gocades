@@ -6,16 +6,12 @@
 extern "C" {
 #endif
 
-struct CCadesCertificateStatus_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesCertificateStatus_t;
 typedef struct CCadesCertificateStatus_t CCadesCertificateStatus;
 
 CCadesCertificateStatus *CCadesCertificateStatus_create();
 void CCadesCertificateStatus_destroy(CCadesCertificateStatus *m);
+char* CCadesCertificateStatus_error(CCadesCertificateStatus *m);
 bool CCadesCertificateStatus_get_result(CCadesCertificateStatus *m);
 
 #ifdef __cplusplus

@@ -5,16 +5,13 @@
 extern "C" {
 #endif
 
-struct CCadesOID_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesOID_t;
 typedef struct CCadesOID_t CCadesOID;
 
 CCadesOID *CCadesOID_create();
 void CCadesOID_destroy(CCadesOID *m);
+char* CCadesOID_error(CCadesOID *m);
+
 char* CCadesOID_get_friendly_name(CCadesOID *m);
 void CCadesOID_set_friendly_name(CCadesOID *m, char* szFriendlyName);
 int CCadesOID_get_name(CCadesOID *m);

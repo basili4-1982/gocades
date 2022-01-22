@@ -24,7 +24,7 @@ func CRL() (*GoCadesCRL, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesCRL) {
 		C.CCadesCRL_destroy(obj.cobjptr)
 	})
-	err := C.GoString(result.err)
+	err := C.GoString(C.CCadesCRL_error(ret.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -35,7 +35,7 @@ func (obj *GoCadesCRL) Import(value string) error {
 	cstr := C.CString(value)
 	defer C.free(unsafe.Pointer(cstr))
 	C.CCadesCRL_import(obj.cobjptr, cstr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCRL_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -46,7 +46,7 @@ func (obj *GoCadesCRL) GetThisUpdate() (string, error) {
 	var ret string
 	val := C.CCadesCRL_get_this_update(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCRL_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -58,7 +58,7 @@ func (obj *GoCadesCRL) GetNextUpdate() (string, error) {
 	var ret string
 	val := C.CCadesCRL_get_next_update(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCRL_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -70,7 +70,7 @@ func (obj *GoCadesCRL) GetIssuerName() (string, error) {
 	var ret string
 	val := C.CCadesCRL_get_issuer_name(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCRL_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -82,7 +82,7 @@ func (obj *GoCadesCRL) GetThumbprint() (string, error) {
 	var ret string
 	val := C.CCadesCRL_get_thumbprint(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCRL_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -94,7 +94,7 @@ func (obj *GoCadesCRL) GetAuthKeyID() (string, error) {
 	var ret string
 	val := C.CCadesCRL_get_auth_key_id(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCRL_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -106,7 +106,7 @@ func (obj *GoCadesCRL) Export(encoding int) (string, error) {
 	var ret string
 	val := C.CCadesCRL_export(obj.cobjptr, C.int(encoding))
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCRL_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}

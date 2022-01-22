@@ -24,7 +24,7 @@ func Store() (*GoCadesStore, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesStore) {
 		C.CCadesStore_destroy(obj.cobjptr)
 	})
-	err := C.GoString(result.err)
+	err := C.GoString(C.CCadesStore_error(ret.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -35,7 +35,7 @@ func (obj *GoCadesStore) Open(value int, name string, mode int) error {
 	cstr := C.CString(name)
 	defer C.free(unsafe.Pointer(cstr))
 	C.CCadesStore_open(obj.cobjptr, C.int(value), cstr, C.int(mode))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesStore_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -44,7 +44,7 @@ func (obj *GoCadesStore) Open(value int, name string, mode int) error {
 
 func (obj *GoCadesStore) Close() error {
 	C.CCadesStore_close(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesStore_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -53,7 +53,7 @@ func (obj *GoCadesStore) Close() error {
 
 func (obj *GoCadesStore) Add(value GoCadesCertificate) error {
 	C.CCadesStore_add(obj.cobjptr, value.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesStore_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -62,7 +62,7 @@ func (obj *GoCadesStore) Add(value GoCadesCertificate) error {
 
 func (obj *GoCadesStore) AddCRL(value GoCadesCRL) error {
 	C.CCadesStore_add_crl(obj.cobjptr, value.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesStore_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -75,7 +75,7 @@ func (obj *GoCadesStore) GetCertificates() (*GoCadesCertificates, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesCertificates) {
 		C.CCadesCertificates_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesStore_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -85,7 +85,7 @@ func (obj *GoCadesStore) GetCertificates() (*GoCadesCertificates, error) {
 func (obj *GoCadesStore) GetLocation() (int, error) {
 	var ret int
 	val := C.CCadesStore_get_location(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesStore_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -97,7 +97,7 @@ func (obj *GoCadesStore) GetName() (string, error) {
 	var ret string
 	val := C.CCadesStore_get_name(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesStore_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}

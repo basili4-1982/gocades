@@ -7,16 +7,13 @@ extern "C" {
 
 #include "CCadesOID.h"
 
-struct CCadesAttribute_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesAttribute_t;
 typedef struct CCadesAttribute_t CCadesAttribute;
 
 CCadesAttribute *CCadesAttribute_create();
 void CCadesAttribute_destroy(CCadesAttribute *m);
+char* CCadesAttribute_error(CCadesAttribute *m);
+
 CCadesOID* CCadesAttribute_get_oid(CCadesAttribute *m);
 void CCadesAttribute_put_oid(CCadesAttribute *m, char* value);
 char* CCadesAttribute_get_value(CCadesAttribute *m);

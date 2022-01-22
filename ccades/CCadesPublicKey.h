@@ -8,16 +8,13 @@
 extern "C" {
 #endif
 
-struct CCadesPublicKey_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesPublicKey_t;
 typedef struct CCadesPublicKey_t CCadesPublicKey;
 
 CCadesPublicKey *CCadesPublicKey_create();
 void CCadesPublicKey_destroy(CCadesPublicKey *m);
+char* CCadesPublicKey_error(CCadesPublicKey *m);
+
 CCadesOID* CCadesPublicKey_get_algorithm(CCadesPublicKey *m);
 CCadesEncodedData* CCadesPublicKey_get_encoded_key(CCadesPublicKey *m);
 CCadesEncodedData* CCadesPublicKey_get_encoded_parameters(CCadesPublicKey *m);

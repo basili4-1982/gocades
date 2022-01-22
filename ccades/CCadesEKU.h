@@ -5,16 +5,13 @@
 extern "C" {
 #endif
 
-struct CCadesEKU_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesEKU_t;
 typedef struct CCadesEKU_t CCadesEKU;
 
 CCadesEKU *CCadesEKU_create();
 void CCadesEKU_destroy(CCadesEKU *m);
+char* CCadesEKU_error(CCadesEKU *m);
+
 int CCadesEKU_get_name(CCadesEKU *m);
 void CCadesEKU_put_name(CCadesEKU *m, int value);
 char* CCadesEKU_get_oid(CCadesEKU *m);

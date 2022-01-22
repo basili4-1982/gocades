@@ -24,7 +24,7 @@ func Attribute() (*GoCadesAttribute, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesAttribute) {
 		C.CCadesAttribute_destroy(obj.cobjptr)
 	})
-	err := C.GoString(result.err)
+	err := C.GoString(C.CCadesAttribute_error(ret.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -37,7 +37,7 @@ func (obj *GoCadesAttribute) GetOID() (*GoCadesOID, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesOID) {
 		C.CCadesOID_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttribute_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -48,7 +48,7 @@ func (obj *GoCadesAttribute) PutOID(value string) error {
 	cstr := C.CString(value)
 	defer C.free(unsafe.Pointer(cstr))
 	C.CCadesAttribute_put_oid(obj.cobjptr, cstr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttribute_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -59,7 +59,7 @@ func (obj *GoCadesAttribute) PutValue(value string) error {
 	cstr := C.CString(value)
 	defer C.free(unsafe.Pointer(cstr))
 	C.CCadesAttribute_put_value(obj.cobjptr, cstr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttribute_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -69,7 +69,7 @@ func (obj *GoCadesAttribute) PutValue(value string) error {
 func (obj *GoCadesAttribute) GetValue() (string, error) {
 	var ret string
 	val := C.CCadesAttribute_get_value(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttribute_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -79,7 +79,7 @@ func (obj *GoCadesAttribute) GetValue() (string, error) {
 
 func (obj *GoCadesAttribute) PutName(value int) error {
 	C.CCadesAttribute_put_name(obj.cobjptr, C.int(value))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttribute_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -89,7 +89,7 @@ func (obj *GoCadesAttribute) PutName(value int) error {
 func (obj *GoCadesAttribute) GetName() (int, error) {
 	var ret int
 	val := C.CCadesAttribute_get_name(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttribute_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -99,7 +99,7 @@ func (obj *GoCadesAttribute) GetName() (int, error) {
 
 func (obj *GoCadesAttribute) PutValueEncoding(value int) error {
 	C.CCadesAttribute_put_value_encoding(obj.cobjptr, C.int(value))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttribute_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -109,7 +109,7 @@ func (obj *GoCadesAttribute) PutValueEncoding(value int) error {
 func (obj *GoCadesAttribute) GetValueEncoding() (int, error) {
 	var ret int
 	val := C.CCadesAttribute_get_value_encoding(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttribute_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}

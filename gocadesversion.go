@@ -20,7 +20,7 @@ func (obj *GoCadesVersion) ToString() (string, error) {
 	var ret string
 	val := C.CCadesVersion_to_string(obj.cobjptr)
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesVersion_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}
@@ -31,7 +31,7 @@ func (obj *GoCadesVersion) ToString() (string, error) {
 func (obj *GoCadesVersion) GetMajorVersion() (int, error) {
 	var ret int
 	val := C.CCadesVersion_get_major_version(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesVersion_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -42,7 +42,7 @@ func (obj *GoCadesVersion) GetMajorVersion() (int, error) {
 func (obj *GoCadesVersion) GetMinorVersion() (int, error) {
 	var ret int
 	val := C.CCadesVersion_get_minor_version(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesVersion_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -53,7 +53,7 @@ func (obj *GoCadesVersion) GetMinorVersion() (int, error) {
 func (obj *GoCadesVersion) GetBuildVersion() (int, error) {
 	var ret int
 	val := C.CCadesVersion_get_build_version(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesVersion_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}

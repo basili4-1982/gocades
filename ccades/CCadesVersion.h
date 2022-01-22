@@ -5,15 +5,13 @@
 extern "C" {
 #endif
 
-struct CCadesVersion_t
-{
-    void *obj;
-    char *err;
-};
+struct CCadesVersion_t;
 typedef struct CCadesVersion_t CCadesVersion;
 
 CCadesVersion *CCadesVersion_create();
 void CCadesVersion_destroy(CCadesVersion *m);
+char* CCadesVersion_error(CCadesVersion *m);
+
 char* CCadesVersion_to_string(CCadesVersion *m);
 int CCadesVersion_get_major_version(CCadesVersion *m);
 int CCadesVersion_get_minor_version(CCadesVersion *m);

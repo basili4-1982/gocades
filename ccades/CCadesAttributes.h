@@ -6,16 +6,13 @@
 extern "C" {
 #endif
 
-struct CCadesAttributes_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesAttributes_t;
 typedef struct CCadesAttributes_t CCadesAttributes;
 
 CCadesAttributes *CCadesAttributes_create();
 void CCadesAttributes_destroy(CCadesAttributes *m);
+char* CCadesAttributes_error(CCadesAttributes *m);
+
 int CCadesAttributes_get_count(CCadesAttributes *m);
 CCadesAttribute* CCadesAttributes_get_item(CCadesAttributes *m, int value);
 void CCadesAttributes_remove(CCadesAttributes *m, int value);

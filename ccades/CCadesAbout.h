@@ -7,16 +7,13 @@ extern "C" {
 
 #include "CCadesVersion.h"
 
-struct CCadesAbout_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesAbout_t;
 typedef struct CCadesAbout_t CCadesAbout;
 
 CCadesAbout *CCadesAbout_create();
 void CCadesAbout_destroy(CCadesAbout *m);
+char* CCadesAbout_error(CCadesAbout *m);
+
 char* CCadesAbout_get_version(CCadesAbout *m);
 int CCadesAbout_get_major_version(CCadesAbout *m);
 int CCadesAbout_get_minor_version(CCadesAbout *m);

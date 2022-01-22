@@ -9,7 +9,6 @@ package gocades
 import "C"
 
 import (
-	"errors"
 	"runtime"
 )
 
@@ -20,10 +19,10 @@ type GoCadesEKUs struct {
 func (obj *GoCadesEKUs) GetCount() (int, error) {
 	var ret int
 	val := C.CCadesEKUs_get_count(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
-	if err != "" {
-		return ret, errors.New(err)
-	}
+	/////err := C.GoString(obj.cobjptr.err)
+	/////if err != "" {
+	/////	return ret, errors.New(err)
+	/////}
 	ret = int(val)
 	return ret, nil
 }
@@ -34,9 +33,9 @@ func (obj *GoCadesEKUs) GetItem(value int) (*GoCadesEKU, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesEKU) {
 		C.CCadesEKU_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
-	if err != "" {
-		return nil, errors.New(err)
-	}
+	/////err := C.GoString(obj.cobjptr.err)
+	/////if err != "" {
+	/////	return nil, errors.New(err)
+	/////}
 	return ret, nil
 }

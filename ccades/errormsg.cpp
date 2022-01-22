@@ -560,7 +560,7 @@ const ATL::CAtlStringW GetErrorMessage(HRESULT hr, DWORD dwLangId){
 }
 #endif //UNIX
 
-void ErrMsgFromHResult(HRESULT err, char* out_buffer)
+void ErrMsgFromHResult(HRESULT err, CAtlStringA& out_buffer)
 {
     if (err)
     {
@@ -568,12 +568,10 @@ void ErrMsgFromHResult(HRESULT err, char* out_buffer)
         wchar_t buff[14];
         swprintf(buff, 14, L" (0x%08X)", err);
         message.Append(buff);
-        CAtlStringA s = CAtlStringA(CW2A(message, CP_UTF8));
-        strcpy(out_buffer, s.GetBuffer());
+        out_buffer = CAtlStringA(CW2A(message, CP_UTF8));
     }
     else {
-        CAtlStringA s = CAtlStringA("");
-        strcpy(out_buffer, s.GetBuffer());
+        out_buffer = CAtlStringA("");
     }
     return;
 }

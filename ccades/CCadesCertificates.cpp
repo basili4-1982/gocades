@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include <stdlib.h>
-#include <iostream>
-#include <fstream>
 #include "CCadesCertificates.h"
 #include "CCadesCertificates.h"
 #include "CPPCadesCPCertificates.h"
@@ -12,29 +10,20 @@ using namespace CryptoPro::PKI::CAdES;
 struct CCadesCertificates_t
 {
     boost::shared_ptr<CPPCadesCPCertificatesObject> obj;
-    char *err;
+    boost::shared_ptr<CAtlStringA> err;
 };
 struct CCadesCertificate_t
 {
     boost::shared_ptr<CPPCadesCPCertificateObject> obj;
-    char *err;
+    boost::shared_ptr<CAtlStringA> err;
 };
-
-char* CCadesCertificates_error(CCadesCertificates *m)
-{
-    return m->err;
-}
 
 CCadesCertificates* CCadesCertificates_create()
 {
     CCadesCertificates *m;
-    char *err;
-
-    m = (typeof(m))malloc(sizeof(*m));
-    err = (typeof(err))calloc(ERR_MAX_SIZE, sizeof(char));
-    m->obj = boost::shared_ptr<CPPCadesCPCertificatesObject>(new CPPCadesCPCertificatesObject());
-    m->err = err;
-
+    m = (typeof(m))calloc(1, sizeof(*m));
+    m->obj = boost::make_shared<CPPCadesCPCertificatesObject>();
+    m->err = boost::make_shared<CAtlStringA>();
     return m;
 }
 
@@ -42,21 +31,27 @@ void CCadesCertificates_destroy(CCadesCertificates *m)
 {
     if (m == NULL)
         return;
-    delete m->obj.get();
-    free(m->err);
+    m->obj.reset();
     free(m);
+}
+
+char* CCadesCertificates_error(CCadesCertificates *m)
+{
+    if (!m)
+        return 0;
+    return m->err->GetBuffer();
 }
 
 int CCadesCertificates_get_count(CCadesCertificates *m)
 {
     if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
         return 0;
     }
 
     unsigned int r;
     HRESULT hr = m->obj->Count(&r);
-    ErrMsgFromHResult(hr, m->err);
+    ErrMsgFromHResult(hr, *(m->err));
     return r;
 }
 
@@ -64,7 +59,7 @@ CCadesCertificate* CCadesCertificates_get_item(CCadesCertificates *m, int value)
 {
     boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificateObject> pObj;
     HRESULT hr = m->obj->Item(value, pObj);
-    ErrMsgFromHResult(hr, m->err);
+    ErrMsgFromHResult(hr, *(m->err));
 
     CCadesCertificate *ret = CCadesCertificate_create();
     ret->obj = pObj;
@@ -82,7 +77,7 @@ CCadesCertificates* CCadesCertificates_find_s(CCadesCertificates *m, int FindTyp
 
     boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPCertificatesObject> pObj;
     HRESULT hr = m->obj->Find(type, &findCriteria, ValidOnly, pObj);
-    ErrMsgFromHResult(hr, m->err);
+    ErrMsgFromHResult(hr, *(m->err));
 
     CCadesCertificates *ret = CCadesCertificates_create();
     ret->obj = pObj;

@@ -5,16 +5,13 @@
 extern "C" {
 #endif
 
-struct CCadesCRL_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesCRL_t;
 typedef struct CCadesCRL_t CCadesCRL;
 
 CCadesCRL *CCadesCRL_create();
 void CCadesCRL_destroy(CCadesCRL *m);
+char* CCadesCRL_error(CCadesCRL *m);
+
 void CCadesCRL_import(CCadesCRL *m, char* value);
 char* CCadesCRL_export(CCadesCRL *m, int value);
 char* CCadesCRL_get_issuer_name(CCadesCRL *m);

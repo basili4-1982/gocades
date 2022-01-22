@@ -16,7 +16,7 @@ type GoCadesCertificateStatus struct {
 func (obj *GoCadesCertificateStatus) GetResult() (bool, error) {
 	var ret bool
 	val := C.CCadesCertificateStatus_get_result(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesCertificateStatus_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}

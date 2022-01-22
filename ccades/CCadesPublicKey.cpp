@@ -1,24 +1,31 @@
 #include "stdafx.h"
 #include <stdlib.h>
-#include <iostream>
-#include <fstream>
 #include "CCadesPublicKey.h"
 #include "CPPCadesCPPublicKey.h"
 
 using namespace CryptoPro::PKI::CAdES;
+struct CCadesEncodedData_t
+{
+    boost::shared_ptr<CPPCadesCPEncodedDataObject> obj;
+    CAtlStringA err;
+};
+struct CCadesOID_t
+{
+    boost::shared_ptr<CPPCadesCPOIDObject> obj;
+    boost::shared_ptr<CAtlStringA> err;
+};
+struct CCadesPublicKey_t
+{
+    boost::shared_ptr<CPPCadesCPPublicKeyObject> obj;
+    boost::shared_ptr<CAtlStringA> err;
+};
 
 CCadesPublicKey *CCadesPublicKey_create()
 {
     CCadesPublicKey *m;
-    CPPCadesCPPublicKeyObject *obj;
-    char *err;
-
-    m = (typeof(m))malloc(sizeof(*m));
-    obj = new CPPCadesCPPublicKeyObject();
-    err = (typeof(err))calloc(ERR_MAX_SIZE, sizeof(char));
-    m->obj = obj;
-    m->err = err;
-
+    m = (typeof(m))calloc(1, sizeof(*m));
+    m->obj = boost::make_shared<CPPCadesCPPublicKeyObject>();
+    m->err = boost::make_shared<CAtlStringA>();
     return m;
 }
 
@@ -26,19 +33,25 @@ void CCadesPublicKey_destroy(CCadesPublicKey *m)
 {
     if (m == NULL)
         return;
-    delete static_cast<CPPCadesCPPublicKeyObject *>(m->obj);
-    free(m->err);
+    m->obj.reset();
     free(m);
+}
+
+char* CCadesPublicKey_error(CCadesPublicKey *m)
+{
+    if (!m)
+        return 0;
+    return m->err->GetBuffer();
 }
 
 CCadesOID* CCadesPublicKey_get_algorithm(CCadesPublicKey *m)
 {
     boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPOIDObject> pObj;
-    HRESULT hr = reinterpret_cast<CPPCadesCPPublicKeyObject *>(m->obj)->get_Algorithm(pObj);
-    ErrMsgFromHResult(hr, m->err);
+    HRESULT hr = m->obj->get_Algorithm(pObj);
+    ErrMsgFromHResult(hr, *(m->err));
 
     CCadesOID *ret = CCadesOID_create();
-    ret->obj = (void*)pObj.get();
+    ret->obj = pObj;
 
     return ret;
 }
@@ -46,11 +59,11 @@ CCadesOID* CCadesPublicKey_get_algorithm(CCadesPublicKey *m)
 CCadesEncodedData* CCadesPublicKey_get_encoded_key(CCadesPublicKey *m)
 {
     boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEncodedDataObject> pObj;
-    HRESULT hr = reinterpret_cast<CPPCadesCPPublicKeyObject *>(m->obj)->get_EncodedKey(pObj);
-    ErrMsgFromHResult(hr, m->err);
+    HRESULT hr = m->obj->get_EncodedKey(pObj);
+    ErrMsgFromHResult(hr, *(m->err));
 
     CCadesEncodedData *ret = CCadesEncodedData_create();
-    ret->obj = (void*)pObj.get();
+    ret->obj = pObj;
 
     return ret;
 }
@@ -58,27 +71,24 @@ CCadesEncodedData* CCadesPublicKey_get_encoded_key(CCadesPublicKey *m)
 CCadesEncodedData* CCadesPublicKey_get_encoded_parameters(CCadesPublicKey *m)
 {
     boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPEncodedDataObject> pObj;
-    HRESULT hr = reinterpret_cast<CPPCadesCPPublicKeyObject *>(m->obj)->get_EncodedParameters(pObj);
-    ErrMsgFromHResult(hr, m->err);
+    HRESULT hr = m->obj->get_EncodedParameters(pObj);
+    ErrMsgFromHResult(hr, *(m->err));
 
     CCadesEncodedData *ret = CCadesEncodedData_create();
-    ret->obj = (void*)pObj.get();
+    ret->obj = pObj;
 
     return ret;
 }
 
 int CCadesPublicKey_get_length(CCadesPublicKey *m)
 {
-    CPPCadesCPPublicKeyObject *obj;
-
     if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
         return 0;
     }
 
-    obj = static_cast<CPPCadesCPPublicKeyObject *>(m->obj);
     DWORD r;
-    HRESULT hr = obj->get_Length(&r);
-    ErrMsgFromHResult(hr, m->err);
+    HRESULT hr = m->obj->get_Length(&r);
+    ErrMsgFromHResult(hr, *(m->err));
     return r;
 }

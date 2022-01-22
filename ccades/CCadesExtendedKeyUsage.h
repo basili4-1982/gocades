@@ -7,16 +7,13 @@
 extern "C" {
 #endif
 
-struct CCadesExtendedKeyUsage_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesExtendedKeyUsage_t;
 typedef struct CCadesExtendedKeyUsage_t CCadesExtendedKeyUsage;
 
 CCadesExtendedKeyUsage *CCadesExtendedKeyUsage_create();
 void CCadesExtendedKeyUsage_destroy(CCadesExtendedKeyUsage *m);
+char* CCadesExtendedKeyUsage_error(CCadesExtendedKeyUsage *m);
+
 CCadesEKUs* CCadesExtendedKeyUsage_get_ekus(CCadesExtendedKeyUsage *m);
 bool CCadesExtendedKeyUsage_get_is_present(CCadesExtendedKeyUsage *m);
 bool CCadesExtendedKeyUsage_get_is_critical(CCadesExtendedKeyUsage *m);

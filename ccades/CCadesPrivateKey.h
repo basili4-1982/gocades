@@ -6,16 +6,13 @@
 extern "C" {
 #endif
 
-struct CCadesPrivateKey_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesPrivateKey_t;
 typedef struct CCadesPrivateKey_t CCadesPrivateKey;
 
 CCadesPrivateKey *CCadesPrivateKey_create();
 void CCadesPrivateKey_destroy(CCadesPrivateKey *m);
+char* CCadesPrivateKey_error(CCadesPrivateKey *m);
+
 void CCadesPrivateKey_change_pin(CCadesPrivateKey *m);
 char* CCadesPrivateKey_get_container_name(CCadesPrivateKey *m);
 char* CCadesPrivateKey_get_unique_container_name(CCadesPrivateKey *m);

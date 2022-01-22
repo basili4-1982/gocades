@@ -7,16 +7,13 @@
 extern "C" {
 #endif
 
-struct CCadesEncodedData_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesEncodedData_t;
 typedef struct CCadesEncodedData_t CCadesEncodedData;
 
 CCadesEncodedData *CCadesEncodedData_create();
 void CCadesEncodedData_destroy(CCadesEncodedData *m);
+char* CCadesEncodedData_error(CCadesEncodedData *m);
+
 char* CCadesEncodedData_format(CCadesEncodedData *m, bool value);
 char* CCadesEncodedData_get_value(CCadesEncodedData *m, int value);
 

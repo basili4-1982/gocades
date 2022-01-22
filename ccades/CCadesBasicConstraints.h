@@ -6,16 +6,13 @@
 extern "C" {
 #endif
 
-struct CCadesBasicConstraints_t
-{
-    void *obj;
-    char *err;
-};
-
+struct CCadesBasicConstraints_t;
 typedef struct CCadesBasicConstraints_t CCadesBasicConstraints;
 
 CCadesBasicConstraints *CCadesBasicConstraints_create();
 void CCadesBasicConstraints_destroy(CCadesBasicConstraints *m);
+char* CCadesBasicConstraints_error(CCadesBasicConstraints *m);
+
 bool CCadesBasicConstraints_get_is_present(CCadesBasicConstraints *m);
 void CCadesBasicConstraints_put_is_present(CCadesBasicConstraints *m, bool value);
 bool CCadesBasicConstraints_get_is_critical(CCadesBasicConstraints *m);

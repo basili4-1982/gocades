@@ -31,7 +31,7 @@ const ATL::CAtlStringW GetErrorMessage(HRESULT hr, DWORD dwLangId = 0);
 #ifdef __cplusplus
 extern "C" {
 #endif
-void ErrMsgFromHResult(HRESULT err, char* out_buffer);
+void ErrMsgFromHResult(HRESULT err, CAtlStringA& out_buffer);
 #ifdef __cplusplus
 }
 #endif

@@ -20,7 +20,7 @@ type GoCadesAttributes struct {
 func (obj *GoCadesAttributes) GetCount() (int, error) {
 	var ret int
 	val := C.CCadesAttributes_get_count(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttributes_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -34,7 +34,7 @@ func (obj *GoCadesAttributes) GetItem(value int) (*GoCadesAttribute, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesAttribute) {
 		C.CCadesAttribute_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttributes_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -43,7 +43,7 @@ func (obj *GoCadesAttributes) GetItem(value int) (*GoCadesAttribute, error) {
 
 func (obj *GoCadesAttributes) Add(value GoCadesAttribute) error {
 	C.CCadesAttributes_add(obj.cobjptr, value.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttributes_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -52,7 +52,7 @@ func (obj *GoCadesAttributes) Add(value GoCadesAttribute) error {
 
 func (obj *GoCadesAttributes) Clear() error {
 	C.CCadesAttributes_clear(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttributes_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -61,7 +61,7 @@ func (obj *GoCadesAttributes) Clear() error {
 
 func (obj *GoCadesAttributes) Remove(value int) error {
 	C.CCadesAttributes_remove(obj.cobjptr, C.int(value))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesAttributes_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}

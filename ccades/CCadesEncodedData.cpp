@@ -1,24 +1,21 @@
 #include "stdafx.h"
 #include <stdlib.h>
-#include <iostream>
-#include <fstream>
 #include "CCadesEncodedData.h"
 #include "CPPCadesCPEncodedData.h"
 
 using namespace CryptoPro::PKI::CAdES;
+struct CCadesEncodedData_t
+{
+    boost::shared_ptr<CPPCadesCPEncodedDataObject> obj;
+    boost::shared_ptr<CAtlStringA> err;
+};
 
 CCadesEncodedData *CCadesEncodedData_create()
 {
     CCadesEncodedData *m;
-    CPPCadesCPEncodedDataObject *obj;
-    char *err;
-
-    m = (typeof(m))malloc(sizeof(*m));
-    obj = new CPPCadesCPEncodedDataObject();
-    err = (typeof(err))calloc(ERR_MAX_SIZE, sizeof(char));
-    m->obj = obj;
-    m->err = err;
-
+    m = (typeof(m))calloc(1, sizeof(*m));
+    m->obj = boost::make_shared<CPPCadesCPEncodedDataObject>();
+    m->err = boost::make_shared<CAtlStringA>();
     return m;
 }
 
@@ -26,44 +23,44 @@ void CCadesEncodedData_destroy(CCadesEncodedData *m)
 {
     if (m == NULL)
         return;
-    delete static_cast<CPPCadesCPEncodedDataObject *>(m->obj);
-    free(m->err);
+    m->obj.reset();
     free(m);
+}
+
+char* CCadesEncodedData_error(CCadesEncodedData *m)
+{
+    if (!m)
+        return 0;
+    return m->err->GetBuffer();
 }
 
 char* CCadesEncodedData_format(CCadesEncodedData *m, bool value)
 {
-    CPPCadesCPEncodedDataObject *obj;
-
     if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
         return 0;
     }
 
-    obj = static_cast<CPPCadesCPEncodedDataObject *>(m->obj);
     CAtlStringW sValueW;
-    HRESULT hr = obj->Format(value, sValueW);
+    HRESULT hr = m->obj->Format(value, sValueW);
     CAtlString sValue = CAtlString(sValueW);
     char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
-    ErrMsgFromHResult(hr, m->err);
+    ErrMsgFromHResult(hr, *(m->err));
     return buf;
 }
 
 char* CCadesEncodedData_get_value(CCadesEncodedData *m, int value)
 {
-    CPPCadesCPEncodedDataObject *obj;
-
     if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
         return 0;
     }
 
-    obj = static_cast<CPPCadesCPEncodedDataObject *>(m->obj);
     CryptoPro::CBlob blob;
-    HRESULT hr = obj->get_Value((CAPICOM_ENCODING_TYPE)value, blob);
+    HRESULT hr = m->obj->get_Value((CAPICOM_ENCODING_TYPE)value, blob);
     char *buf = (char*)calloc(blob.cbData() + 1, sizeof(char));
     memcpy(buf, blob.pbData(), blob.cbData());
-    ErrMsgFromHResult(hr, m->err);
+    ErrMsgFromHResult(hr, *(m->err));
     return buf;
 }

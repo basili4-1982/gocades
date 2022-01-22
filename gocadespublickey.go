@@ -20,7 +20,7 @@ type GoCadesPublicKey struct {
 func (obj *GoCadesPublicKey) GetLength() (int, error) {
 	var ret int
 	val := C.CCadesPublicKey_get_length(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesPublicKey_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -34,7 +34,7 @@ func (obj *GoCadesPublicKey) GetAlgorithm() (*GoCadesOID, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesOID) {
 		C.CCadesOID_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesPublicKey_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -47,7 +47,7 @@ func (obj *GoCadesPublicKey) GetEncodedKey() (*GoCadesEncodedData, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesEncodedData) {
 		C.CCadesEncodedData_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesPublicKey_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -60,7 +60,7 @@ func (obj *GoCadesPublicKey) GetEncodedParameters() (*GoCadesEncodedData, error)
 	runtime.SetFinalizer(ret, func(obj *GoCadesEncodedData) {
 		C.CCadesEncodedData_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesPublicKey_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}

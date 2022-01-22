@@ -7,10 +7,7 @@ package gocades
 #include "CCadesBasicConstraints.h"
 */
 import "C"
-
-import (
-	"errors"
-)
+import "errors"
 
 type GoCadesBasicConstraints struct {
 	cobjptr *C.CCadesBasicConstraints
@@ -19,7 +16,7 @@ type GoCadesBasicConstraints struct {
 func (obj *GoCadesBasicConstraints) GetIsPresent() (bool, error) {
 	var ret bool
 	val := C.CCadesBasicConstraints_get_is_present(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesBasicConstraints_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -29,7 +26,7 @@ func (obj *GoCadesBasicConstraints) GetIsPresent() (bool, error) {
 
 func (obj *GoCadesBasicConstraints) SetIsPresent(value bool) error {
 	C.CCadesBasicConstraints_put_is_present(obj.cobjptr, C.bool(value))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesBasicConstraints_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -39,7 +36,7 @@ func (obj *GoCadesBasicConstraints) SetIsPresent(value bool) error {
 func (obj *GoCadesBasicConstraints) GetIsCritical() (bool, error) {
 	var ret bool
 	val := C.CCadesBasicConstraints_get_is_critical(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesBasicConstraints_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -49,7 +46,7 @@ func (obj *GoCadesBasicConstraints) GetIsCritical() (bool, error) {
 
 func (obj *GoCadesBasicConstraints) SetIsCritical(value bool) error {
 	C.CCadesBasicConstraints_put_is_critical(obj.cobjptr, C.bool(value))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesBasicConstraints_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
@@ -59,7 +56,7 @@ func (obj *GoCadesBasicConstraints) SetIsCritical(value bool) error {
 func (obj *GoCadesBasicConstraints) GetIsCertificateAuthority() (bool, error) {
 	var ret bool
 	val := C.CCadesBasicConstraints_get_is_certificate_authority(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesBasicConstraints_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -70,7 +67,7 @@ func (obj *GoCadesBasicConstraints) GetIsCertificateAuthority() (bool, error) {
 func (obj *GoCadesBasicConstraints) GetIsPathLenConstraintPresent() (bool, error) {
 	var ret bool
 	val := C.CCadesBasicConstraints_get_is_path_len_constraint_present(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesBasicConstraints_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -81,7 +78,7 @@ func (obj *GoCadesBasicConstraints) GetIsPathLenConstraintPresent() (bool, error
 func (obj *GoCadesBasicConstraints) GetPathLenConstraint() (int, error) {
 	var ret int
 	val := C.CCadesBasicConstraints_get_path_len_constraint(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesBasicConstraints_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
