@@ -1,6 +1,7 @@
 package gocades
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -9,117 +10,117 @@ var Crl = "MIIaDjCCGPYCAQEwDQYJKoZIhvcNAQELBQAwRjELMAkGA1UEBhMCVVMxIjAgBgNVBAoTG
 
 func TestAbout(t *testing.T) {
 	about, _ := About()
-	about.GetVersion()
-	about.GetMajorVersion()
-	about.GetMinorVersion()
-	about.GetBuildVersion()
-	about.GetCSPVersion("", 80)
-	about.GetCSPName(80)
-	about.MediaFilter(MEDIA_TYPE_SCARD)
-	about.ReaderFilter(ENABLE_ANY_CARRIER_TYPE, DISABLE_EVERY_CARRIER_OPERATION, ".*rutoken.*")
+	fmt.Println(about.GetVersion())
+	fmt.Println(about.GetMajorVersion())
+	fmt.Println(about.GetMinorVersion())
+	fmt.Println(about.GetBuildVersion())
+	fmt.Println(about.GetCSPVersion("", 80))
+	fmt.Println(about.GetCSPName(80))
+	fmt.Println(about.MediaFilter(MEDIA_TYPE_SCARD))
+	fmt.Println(about.ReaderFilter(ENABLE_ANY_CARRIER_TYPE, DISABLE_EVERY_CARRIER_OPERATION, ".*rutoken.*"))
 }
 
 func TestVersion(t *testing.T) {
 	about, _ := About()
 	version, _ := about.GetCSPVersion("", 80)
-	version.ToString()
-	version.GetMajorVersion()
-	version.GetMinorVersion()
-	version.GetBuildVersion()
+	fmt.Println(version.ToString())
+	fmt.Println(version.GetMajorVersion())
+	fmt.Println(version.GetMinorVersion())
+	fmt.Println(version.GetBuildVersion())
 }
 
 func TestAttribute(t *testing.T) {
 	attribute, _ := Attribute()
-	attribute.PutValue("ABCD")
-	attribute.GetValue()
-	attribute.PutName(2)
-	attribute.GetName()
-	attribute.PutValueEncoding(1)
-	attribute.GetValueEncoding()
-	attribute.PutOID("1.2.3.3.5")
-	attribute.GetOID()
+	fmt.Println(attribute.PutValue("ABCD"))
+	fmt.Println(attribute.GetValue())
+	fmt.Println(attribute.PutName(2))
+	fmt.Println(attribute.GetName())
+	fmt.Println(attribute.PutValueEncoding(1))
+	fmt.Println(attribute.GetValueEncoding())
+	fmt.Println(attribute.PutOID("1.2.3.3.5"))
+	fmt.Println(attribute.GetOID())
 }
 
 func TestOID(t *testing.T) {
 	attribute, _ := Attribute()
 	oid, _ := attribute.GetOID()
-	oid.SetFriendlyName("ГОСТ Р 34.10-2001")
-	oid.GetFriendlyName()
-	oid.GetValue()
-	oid.SetValue("1.2.643.7.1.1.2.2")
-	oid.GetFriendlyName()
-	oid.SetName(1)
-	oid.GetName()
-	oid.GetValue()
+	fmt.Println(oid.SetFriendlyName("ГОСТ Р 34.10-2001"))
+	fmt.Println(oid.GetFriendlyName())
+	fmt.Println(oid.GetValue())
+	fmt.Println(oid.SetValue("1.2.643.7.1.1.2.2"))
+	fmt.Println(oid.GetFriendlyName())
+	fmt.Println(oid.SetName(1))
+	fmt.Println(oid.GetName())
+	fmt.Println(oid.GetValue())
 }
 
 func TestLicense(t *testing.T) {
 	license, _ := License()
-	license.GetCompanyName(0)
-	license.GetFirstInstallDate(0)
-	license.GetSerialNumber(0)
-	license.GetType(0)
-	license.GetValidTo(0)
+	fmt.Println(license.GetCompanyName(0))
+	fmt.Println(license.GetFirstInstallDate(0))
+	fmt.Println(license.GetSerialNumber(0))
+	fmt.Println(license.GetType(0))
+	fmt.Println(license.GetValidTo(0))
 }
 
 func TestCRL(t *testing.T) {
 	crl, _ := CRL()
-	crl.Import(Crl)
-	crl.GetIssuerName()
-	crl.GetThisUpdate()
-	crl.GetNextUpdate()
-	crl.GetThumbprint()
-	crl.GetAuthKeyID()
-	crl.Export(CADESCOM_ENCODE_BASE64)
+	fmt.Println(crl.Import(Crl))
+	fmt.Println(crl.GetIssuerName())
+	fmt.Println(crl.GetThisUpdate())
+	fmt.Println(crl.GetNextUpdate())
+	fmt.Println(crl.GetThumbprint())
+	fmt.Println(crl.GetAuthKeyID())
+	fmt.Println(crl.Export(CADESCOM_ENCODE_BASE64))
 }
 
 func TestCertificate(t *testing.T) {
 	certificate, _ := Certificate()
-	certificate.Import(Cert)
-	certificate.Export(CADESCOM_ENCODE_BASE64)
-	certificate.GetBasicConstraints()
-	certificate.GetExtendedKeyUsage()
-	certificate.GetKeyUsage()
-	certificate.GetPublicKey()
-	certificate.GetPrivateKey()
-	certificate.IsValid()
-	certificate.GetInfo(CAPICOM_CERT_INFO_SUBJECT_SIMPLE_NAME)
-	certificate.HasPrivateKey()
-	certificate.FindPrivateKey()
-	certificate.GetIssuerName()
-	certificate.GetSerialNumber()
-	certificate.GetSubjectName()
-	certificate.GetThumbprint()
-	certificate.GetValidToDate()
-	certificate.GetValidFromDate()
-	certificate.GetVersion()
+	fmt.Println(certificate.Import(Cert))
+	fmt.Println(certificate.Export(CADESCOM_ENCODE_BASE64))
+	fmt.Println(certificate.GetBasicConstraints())
+	fmt.Println(certificate.GetExtendedKeyUsage())
+	fmt.Println(certificate.GetKeyUsage())
+	fmt.Println(certificate.GetPublicKey())
+	fmt.Println(certificate.GetPrivateKey())
+	fmt.Println(certificate.IsValid())
+	fmt.Println(certificate.GetInfo(CAPICOM_CERT_INFO_SUBJECT_SIMPLE_NAME))
+	fmt.Println(certificate.HasPrivateKey())
+	fmt.Println(certificate.FindPrivateKey())
+	fmt.Println(certificate.GetIssuerName())
+	fmt.Println(certificate.GetSerialNumber())
+	fmt.Println(certificate.GetSubjectName())
+	fmt.Println(certificate.GetThumbprint())
+	fmt.Println(certificate.GetValidToDate())
+	fmt.Println(certificate.GetValidFromDate())
+	fmt.Println(certificate.GetVersion())
 }
 
 func TestCertificateStatus(t *testing.T) {
 	certificate, _ := Certificate()
-	certificate.Import(Cert)
+	fmt.Println(certificate.Import(Cert))
 	certstatus, _ := certificate.IsValid()
-	certstatus.GetResult()
+	fmt.Println(certstatus.GetResult())
 }
 
 func TestBasicConstraints(t *testing.T) {
 	certificate, _ := Certificate()
 	certificate.Import(Cert)
 	result, _ := certificate.GetBasicConstraints()
-	result.GetIsCertificateAuthority()
-	result.GetIsCritical()
-	result.GetIsPathLenConstraintPresent()
-	result.GetIsPresent()
-	result.GetPathLenConstraint()
+	fmt.Println(result.GetIsCertificateAuthority())
+	fmt.Println(result.GetIsCritical())
+	fmt.Println(result.GetIsPathLenConstraintPresent())
+	fmt.Println(result.GetIsPresent())
+	fmt.Println(result.GetPathLenConstraint())
 }
 
 func TestExtendedKeyUsage(t *testing.T) {
 	certificate, _ := Certificate()
 	certificate.Import(Cert)
 	extkeyusage, _ := certificate.GetExtendedKeyUsage()
-	extkeyusage.GetIsCritical()
-	extkeyusage.GetIsPresent()
-	extkeyusage.GetEKUs()
+	fmt.Println(extkeyusage.GetIsCritical())
+	fmt.Println(extkeyusage.GetIsPresent())
+	fmt.Println(extkeyusage.GetEKUs())
 }
 
 func TestEKUs(t *testing.T) {
@@ -127,8 +128,8 @@ func TestEKUs(t *testing.T) {
 	certificate.Import(Cert)
 	extkeyusage, _ := certificate.GetExtendedKeyUsage()
 	ekus, _ := extkeyusage.GetEKUs()
-	ekus.GetCount()
-	ekus.GetItem(1)
+	fmt.Println(ekus.GetCount())
+	fmt.Println(ekus.GetItem(1))
 }
 
 func TestEKU(t *testing.T) {
@@ -137,40 +138,40 @@ func TestEKU(t *testing.T) {
 	extkeyusage, _ := certificate.GetExtendedKeyUsage()
 	ekus, _ := extkeyusage.GetEKUs()
 	eku, _ := ekus.GetItem(1)
-	eku.GetName()
-	eku.GetOID()
-	eku.SetName(2)
-	eku.GetName()
-	eku.GetOID()
-	eku.PutOID("1.2.8.4")
-	eku.GetOID()
+	fmt.Println(eku.GetName())
+	fmt.Println(eku.GetOID())
+	fmt.Println(eku.SetName(2))
+	fmt.Println(eku.GetName())
+	fmt.Println(eku.GetOID())
+	fmt.Println(eku.PutOID("1.2.8.4"))
+	fmt.Println(eku.GetOID())
 }
 
 func TestKeyUsage(t *testing.T) {
 	certificate, _ := Certificate()
 	certificate.Import(Cert)
 	keyusage, _ := certificate.GetKeyUsage()
-	keyusage.GetIsCRLSignEnabled()
-	keyusage.GetIsCritical()
-	keyusage.GetIsDataEnciphermentEnabled()
-	keyusage.GetIsDecipherOnlyEnabled()
-	keyusage.GetIsDigitalSignatureEnabled()
-	keyusage.GetIsEncipherOnlyEnabled()
-	keyusage.GetIsKeyAgreementEnabled()
-	keyusage.GetIsKeyCertSignEnabled()
-	keyusage.GetIsKeyEnciphermentEnabled()
-	keyusage.GetIsNonRepudationEnabled()
-	keyusage.GetIsPresent()
+	fmt.Println(keyusage.GetIsCRLSignEnabled())
+	fmt.Println(keyusage.GetIsCritical())
+	fmt.Println(keyusage.GetIsDataEnciphermentEnabled())
+	fmt.Println(keyusage.GetIsDecipherOnlyEnabled())
+	fmt.Println(keyusage.GetIsDigitalSignatureEnabled())
+	fmt.Println(keyusage.GetIsEncipherOnlyEnabled())
+	fmt.Println(keyusage.GetIsKeyAgreementEnabled())
+	fmt.Println(keyusage.GetIsKeyCertSignEnabled())
+	fmt.Println(keyusage.GetIsKeyEnciphermentEnabled())
+	fmt.Println(keyusage.GetIsNonRepudationEnabled())
+	fmt.Println(keyusage.GetIsPresent())
 }
 
 func TestPublicKey(t *testing.T) {
 	certificate, _ := Certificate()
 	certificate.Import(Cert)
 	publickey, _ := certificate.GetPublicKey()
-	publickey.GetAlgorithm()
-	publickey.GetEncodedKey()
-	publickey.GetEncodedParameters()
-	publickey.GetLength()
+	fmt.Println(publickey.GetAlgorithm())
+	fmt.Println(publickey.GetEncodedKey())
+	fmt.Println(publickey.GetEncodedParameters())
+	fmt.Println(publickey.GetLength())
 }
 
 func TestEncodedData(t *testing.T) {
@@ -178,32 +179,47 @@ func TestEncodedData(t *testing.T) {
 	certificate.Import(Cert)
 	publickey, _ := certificate.GetPublicKey()
 	encodeddata, _ := publickey.GetEncodedKey()
-	encodeddata.Format(true)
-	encodeddata.GetValue(CADESCOM_ENCODE_BASE64)
+	fmt.Println(encodeddata.Format(true))
+	fmt.Println(encodeddata.GetValue(CADESCOM_ENCODE_BASE64))
 }
 
 func TestStore(t *testing.T) {
 	store, _ := Store()
 	store.Open(CADESCOM_MEMORY_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
-	store.GetCertificates()
-	store.GetLocation()
-	store.GetName()
+	fmt.Println(store.GetCertificates())
+	fmt.Println(store.GetLocation())
+	fmt.Println(store.GetName())
 	cert, _ := Certificate()
-	cert.Import(Cert)
-	store.Add(*cert)
+	fmt.Println(cert.Import(Cert))
+	fmt.Println(store.Add(*cert))
 	crl, _ := CRL()
-	crl.Import(Crl)
-	store.AddCRL(*crl)
-	store.Close()
+	fmt.Println(crl.Import(Crl))
+	fmt.Println(store.AddCRL(*crl))
+	fmt.Println(store.Close())
 }
 
 func TestCertificates(t *testing.T) {
 	store, _ := Store()
 	store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
 	certificates, _ := store.GetCertificates()
-	certificates.GetCount()
+	fmt.Println(certificates.GetCount())
 	cert, _ := certificates.GetItem(1)
-	cert.GetSubjectName()
+	fmt.Println(cert.GetSubjectName())
 	certs2, _ := certificates.Find(CAPICOM_CERTIFICATE_FIND_SUBJECT_NAME, "test", true)
-	certs2.GetCount()
+	fmt.Println(certs2.GetCount())
+}
+
+func TestHashedData(t *testing.T) {
+	hashed, _ := HashedData()
+	fmt.Println(hashed.PutAlgorithm(CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256))
+	fmt.Println(hashed.GetAlgorithm())
+	fmt.Println(hashed.PutDataEncoding(1))
+	fmt.Println(hashed.GetDataEncoding())
+	fmt.Println(hashed.Hash("data to hash"))
+	fmt.Println(hashed.GetValue())
+	fmt.Println(hashed.SetHashValue("DEADBEEFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEE"))
+	fmt.Println(hashed.GetValue())
+	fmt.Println(hashed.PutAlgorithm(CADESCOM_HASH_ALGORITHM_CP_GOST_3411_2012_256_HMAC))
+	fmt.Println(hashed.PutKey("DEADBEEF6ED7D38DF2D4356807BABA09F91325C6C705AC01F27274B952FFEABEEBFEAAAA"))
+	fmt.Println(hashed.GetKey())
 }

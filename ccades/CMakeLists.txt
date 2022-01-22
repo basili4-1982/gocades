@@ -13,6 +13,7 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesEKUs.cpp
             CCadesEncodedData.cpp
             CCadesExtendedKeyUsage.cpp
+            CCadesHashedData.cpp
             CCadesKeyUsage.cpp
             CCadesLicense.cpp
             CCadesPrivateKey.cpp

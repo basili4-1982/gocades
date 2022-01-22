@@ -9,6 +9,7 @@ package gocades
 import "C"
 
 import (
+	"errors"
 	"runtime"
 )
 
@@ -19,10 +20,10 @@ type GoCadesExtendedKeyUsage struct {
 func (obj *GoCadesExtendedKeyUsage) GetIsPresent() (bool, error) {
 	var ret bool
 	val := C.CCadesExtendedKeyUsage_get_is_present(obj.cobjptr)
-	/////err := C.GoString(obj.cobjptr.err)
-	/////if err != "" {
-	/////	return ret, errors.New(err)
-	/////}
+	err := C.GoString(C.CCadesExtendedKeyUsage_error(obj.cobjptr))
+	if err != "" {
+		return ret, errors.New(err)
+	}
 	ret = bool(val)
 	return ret, nil
 }
@@ -30,10 +31,10 @@ func (obj *GoCadesExtendedKeyUsage) GetIsPresent() (bool, error) {
 func (obj *GoCadesExtendedKeyUsage) GetIsCritical() (bool, error) {
 	var ret bool
 	val := C.CCadesExtendedKeyUsage_get_is_critical(obj.cobjptr)
-	/////err := C.GoString(obj.cobjptr.err)
-	/////if err != "" {
-	/////	return ret, errors.New(err)
-	/////}
+	err := C.GoString(C.CCadesExtendedKeyUsage_error(obj.cobjptr))
+	if err != "" {
+		return ret, errors.New(err)
+	}
 	ret = bool(val)
 	return ret, nil
 }
@@ -44,9 +45,9 @@ func (obj *GoCadesExtendedKeyUsage) GetEKUs() (*GoCadesEKUs, error) {
 	runtime.SetFinalizer(ret, func(obj *GoCadesEKUs) {
 		C.CCadesEKUs_destroy(obj.cobjptr)
 	})
-	/////err := C.GoString(obj.cobjptr.err)
-	/////if err != "" {
-	/////	return nil, errors.New(err)
-	/////}
+	err := C.GoString(C.CCadesExtendedKeyUsage_error(obj.cobjptr))
+	if err != "" {
+		return nil, errors.New(err)
+	}
 	return ret, nil
 }
