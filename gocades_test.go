@@ -223,3 +223,33 @@ func TestHashedData(t *testing.T) {
 	fmt.Println(hashed.PutKey("DEADBEEF6ED7D38DF2D4356807BABA09F91325C6C705AC01F27274B952FFEABEEBFEAAAA"))
 	fmt.Println(hashed.GetKey())
 }
+
+func TestSigner(t *testing.T) {
+	signer, _ := Signer()
+	fmt.Println(signer.GetAuthenticatedAttributes2())
+	fmt.Println(signer.GetCertificate())
+	fmt.Println(signer.PutOptions(CAPICOM_CERTIFICATE_INCLUDE_CHAIN_EXCEPT_ROOT))
+	fmt.Println(signer.GetOptions())
+	fmt.Println(signer.GetCRLs())
+	fmt.Println(signer.GetOCSPResponses())
+	fmt.Println(signer.PutTSAAddress("http://www.cryptopro.ru/tsp/tsp.srf"))
+	fmt.Println(signer.GetTSAAddress())
+	fmt.Println(signer.GetUnauthenticatedAttributes())
+	fmt.Println(signer.GetSignatureTimestampTime())
+	fmt.Println(signer.GetSigningTime())
+	fmt.Println(signer.GetSignatureStatus())
+	fmt.Println(signer.PutCheckCertificate(true))
+	fmt.Println(signer.GetCheckCertificate())
+}
+
+func TestBlobs(t *testing.T) {
+	signer, _ := Signer()
+	crls, _ := signer.GetCRLs()
+	fmt.Println(crls.GetCount())
+}
+
+func TestSignatureStatus(t *testing.T) {
+	signer, _ := Signer()
+	status, _ := signer.GetSignatureStatus()
+	fmt.Println(status.IsValid())
+}

@@ -1,29 +1,32 @@
 // string->void
-void CCadesAttribute_put_oid(CCadesAttribute *m, char* value)
+void CCadesSigner_put_tsa_address(CCadesSigner *m, char* value)
 {
-    CPPCadesCPAttributeObject *obj;
-
     if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
         return;
     }
 
-    obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
     CAtlStringA sValue(value);
-    HRESULT hr = obj->put_OID(sValue);
-    ErrMsgFromHResult(hr, m->err);
+    HRESULT hr = m->obj->put_TSAAddress(sValue);
+    ErrMsgFromHResult(hr, *(m->err));
     return;
 }
 
-// void->object
-CCadesOID* CCadesAttribute_get_oid(CCadesAttribute *m)
-{
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPOIDObject> pObj;
-    HRESULT hr = reinterpret_cast<CPPCadesCPAttributeObject *>(m->obj)->get_OID(pObj);
-    ErrMsgFromHResult(hr, m->err);
 
-    CCadesOID *ret = CCadesOID_create();
-    ret->obj = (void*)pObj.get();
+// void->object
+CCadesAttributes *CCadesSigner_get_authenticated_attributes(CCadesSigner *m)
+{
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
+        return 0;
+    }
+
+    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAttributesObject> pObj;
+    HRESULT hr = m->obj->CPPAttributesObject(pObj);
+    ErrMsgFromHResult(hr, *(m->err));
+
+    CCadesAttributes *ret = CCadesAttributes_create();
+    ret->obj = pObj;
 
     return ret;
 }
@@ -41,7 +44,7 @@ char* CCadesAttribute_get_value(CCadesAttribute *m)
     obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
     CryptoPro::CBlob blob;
     HRESULT hr = obj->get_Value(blob);
-    CAtlString sValue((char*)blob.pbData(), blob.cbData());
+    CAtlString sValue((char*)blob.pbData(), blob.cbData() + 1);
     ErrMsgFromHResult(hr, m->err);
     return (char*)sValue.GetString();
 }
@@ -65,48 +68,42 @@ void CCadesAttribute_put_value(CCadesAttribute *m, char* value)
 }
 
 // int->void
-void CCadesAttribute_put_name(CCadesAttribute *m, int value)
+void CCadesSigner_put_options(CCadesSigner *m, int value)
 {
-    CPPCadesCPAttributeObject *obj;
-
     if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
         return;
     }
 
-    obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
-    HRESULT hr = obj->put_Name((CADESCOM_ATTRIBUTE)value);
-    ErrMsgFromHResult(hr, m->err);
+    HRESULT hr = m->obj->put_Options((CAPICOM_CERTIFICATE_INCLUDE_OPTION)value);
+    ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
     return;
 }
 
-// void->int
-int CCadesAttribute_get_build_version(CCadesAttribute *m)
-{
-    CPPCadesCPAttributeObject *obj;
 
+// void->int
+int CCadesSigner_get_options(CCadesSigner *m)
+{
     if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
         return 0;
     }
 
-    obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
-    CADESCOM_ATTRIBUTE val;
-    HRESULT hr = obj->get_Name(&val);
+    CAPICOM_CERTIFICATE_INCLUDE_OPTION val;
+    HRESULT hr = m->obj->get_Options(&val);
     DWORD r = (DWORD)val;
-    ErrMsgFromHResult(hr, m->err);
+    ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
     return r;
 }
 
-
 // govoid->goobject
-func (obj *GoCadesAttribute) GetOID() (*GoCadesOID, error) {
-	ret := &GoCadesOID{C.CCadesAttribute_get_oid(obj.cobjptr)}
+func (obj *GoCadesSigner) GetAttributes() (*GoCadesAttributes, error) {
+	ret := &GoCadesAttributes{C.CCadesSigner_get_authenticated_attributes2(obj.cobjptr)}
 
-	runtime.SetFinalizer(ret, func(obj *GoCadesOID) {
-		C.CCadesOID_destroy(obj.cobjptr)
+	runtime.SetFinalizer(ret, func(obj *GoCadesAttributes) {
+		C.CCadesAttributes_destroy(obj.cobjptr)
 	})
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesSigner_error(obj.cobjptr))
 	if err != "" {
 		return nil, errors.New(err)
 	}
@@ -114,16 +111,17 @@ func (obj *GoCadesAttribute) GetOID() (*GoCadesOID, error) {
 }
 
 // gostring->govoid
-func (obj *GoCadesAbout) PutOID(value string) error {
+func (obj *GoCadesSigner) PutTSAAddress(value string) error {
 	cstr := C.CString(value)
 	defer C.free(unsafe.Pointer(cstr))
-	C.CCadesAttribute_put_oid(obj.cobjptr, cstr)
-	err := C.GoString(obj.cobjptr.err)
+	C.CCadesSigner_put_tsa_address(obj.cobjptr, cstr)
+	err := C.GoString(C.CCadesSigner_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
 	return nil
 }
+
 
 // govoid->gostring
 func (obj *GoCadesHashedData) GetValue() (string, error) {
@@ -179,11 +177,15 @@ void CCadesEKU_put_name(CCadesEKU *m, int value)
 }
 
 // object->void
-void CCadesAttributes_add(CCadesAttributes *m, CCadesAttribute *obj)
+void CCadesSigner_put_authenticated_attributes(CCadesSigner *m, CCadesAttributes *obj)
 {
-    boost::shared_ptr<CryptoPro::PKI::CAdES::CPPCadesCPAttributeObject> pObj((CPPCadesCPAttributeObject*)obj->obj);
-    HRESULT hr = reinterpret_cast<CPPCadesCPAttributesObject *>(m->obj)->Add(pObj);
-    ErrMsgFromHResult(hr, m->err);
+    if (m == NULL){
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
+        return;
+    }
+
+    HRESULT hr = m->obj->put_AuthenticatedAttributes(obj->obj);
+    ErrMsgFromHResult(hr, *(m->err));
     return;
 }
 
@@ -313,40 +315,37 @@ char* CCadesCRL_get_issuer_name(CCadesCRL *m)
 }
 
 // void->string
-char* CCadesOID_get_value(CCadesOID *m)
+char* CCadesSigner_get_tsa_address(CCadesSigner *m)
 {
-    CPPCadesCPOIDObject *obj;
-
     if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
         return 0;
     }
 
-    obj = static_cast<CPPCadesCPOIDObject *>(m->obj);
-    boost::shared_ptr<CAtlStringA> sValue;
-    HRESULT hr = obj->get_Value(sValue);
+    CAtlStringA sValue;
+    HRESULT hr = m->obj->get_TSAAddress(sValue);
     char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
-    ErrMsgFromHResult(hr, m->err);
+    ErrMsgFromHResult(hr, *(m->err));
     return buf;
 }
 
 // void->time
-char* CCadesCRL_get_this_update(CCadesCRL *m)
+char* CCadesSigner_get_signature_timestamp_time(CCadesSigner *m)
 {
-    CPPCadesCPCRLObject *obj;
-
     if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
         return 0;
     }
 
-    obj = static_cast<CPPCadesCPCRLObject *>(m->obj);
     CryptoPro::CDateTime d;
-    HRESULT hr = obj->get_ThisUpdate(d);
+    HRESULT hr = m->obj->get_SignatureTimeStampTime(d);
     CAtlString sValue = d.tostring().c_str();
-    ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
+    ErrMsgFromHResult(hr, *(m->err));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
+    memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
+    ErrMsgFromHResult(hr, *(m->err));
+    return buf;
 }
 
 // void->bool
@@ -367,10 +366,10 @@ bool CCadesBasicConstraints_get_is_present(CCadesBasicConstraints *m)
 }
 
 // govoid->gobool
-func (obj *GoCadesBasicConstraints) GetIsPresent() (bool, error) {
+func (obj *GoCadesSigner) GetCheckCertificate() (bool, error) {
 	var ret bool
-	val := C.CCadesBasicConstraints_get_is_present(obj.cobjptr)
-	err := C.GoString(obj.cobjptr.err)
+	val := C.CCadesSigner_get_check_certificate(obj.cobjptr)
+	err := C.GoString(C.CCadesSigner_error(obj.cobjptr))
 	if err != "" {
 		return ret, errors.New(err)
 	}
@@ -379,14 +378,15 @@ func (obj *GoCadesBasicConstraints) GetIsPresent() (bool, error) {
 }
 
 // gobool->govoid
-func (obj *GoCadesBasicConstraints) SetIsPresent(value bool) error {
-	C.CCadesBasicConstraints_put_is_present(obj.cobjptr, C.bool(value))
-	err := C.GoString(obj.cobjptr.err)
+func (obj *GoCadesSigner) PutCheckCertificate(value bool) error {
+	C.CCadesSigner_put_check_certificate(obj.cobjptr, C.bool(value))
+	err := C.GoString(C.CCadesSigner_error(obj.cobjptr))
 	if err != "" {
 		return errors.New(err)
 	}
 	return nil
 }
+
 
 // bool->void
 void CCadesPrivateKey_set_cache(CCadesPrivateKey *m, bool value)

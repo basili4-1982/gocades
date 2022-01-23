@@ -5,6 +5,7 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesAttribute.cpp
             CCadesAttributes.cpp
             CCadesBasicConstraints.cpp
+            CCadesBlobs.cpp
             CCadesCertificate.cpp
             CCadesCertificates.cpp
             CCadesCertificateStatus.cpp
@@ -18,6 +19,8 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesLicense.cpp
             CCadesPrivateKey.cpp
             CCadesPublicKey.cpp
+            CCadesSignatureStatus.cpp
+            CCadesSigner.cpp
             CCadesStore.cpp
             CCadesVersion.cpp
             CCadesOID.cpp
