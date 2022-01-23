@@ -2,6 +2,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.0)
 PROJECT(ccades LANGUAGES CXX)
     SET (ccades_LIB_SRCS
             CCadesAbout.cpp
+            CCadesAlgorithm.cpp
             CCadesAttribute.cpp
             CCadesAttributes.cpp
             CCadesBasicConstraints.cpp
@@ -13,12 +14,14 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesEKU.cpp
             CCadesEKUs.cpp
             CCadesEncodedData.cpp
+            CCadesEnvelopedData.cpp
             CCadesExtendedKeyUsage.cpp
             CCadesHashedData.cpp
             CCadesKeyUsage.cpp
             CCadesLicense.cpp
             CCadesPrivateKey.cpp
             CCadesPublicKey.cpp
+            CCadesRecipients.cpp
             CCadesSignatureStatus.cpp
             CCadesSigner.cpp
             CCadesStore.cpp

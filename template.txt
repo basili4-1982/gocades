@@ -50,20 +50,17 @@ char* CCadesAttribute_get_value(CCadesAttribute *m)
 }
 
 // blob->void
-void CCadesAttribute_put_value(CCadesAttribute *m, char* value)
+void CCadesEnvelopedData_decrypt(CCadesEnvelopedData *m, char* value)
 {
-    CPPCadesCPAttributeObject *obj;
-
     if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
         return;
     }
 
-    obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
     CAtlStringA sValue(value);
     CryptoPro::CBlob blob((const unsigned char *)sValue.GetBuffer(), sValue.GetLength());
-    HRESULT hr = obj->put_Value(blob);
-    ErrMsgFromHResult(hr, m->err);
+    HRESULT hr = m->obj->Decrypt(blob);
+    ErrMsgFromHResult(hr, *(m->err));
     return;
 }
 
@@ -244,22 +241,18 @@ func (obj *GoCadesAttributes) Clear() error {
 }
 
 // int->blob
-char* CCadesCRL_export(CCadesCRL *m, int value)
+char* CCadesEnvelopedData_export(CCadesEnvelopedData *m, int value)
 {
-    CPPCadesCPCRLObject *obj;
-
     if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, m->err);
+        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
         return 0;
     }
 
-    obj = static_cast<CPPCadesCPCRLObject *>(m->obj);
-
     CryptoPro::CBlob blob;
-    HRESULT hr = obj->Export((CAPICOM_ENCODING_TYPE)value, blob);
+    HRESULT hr = m->obj->Encrypt((CAPICOM_ENCODING_TYPE)value, blob);
     char *buf = (char*)calloc(blob.cbData() + 1, sizeof(char));
     memcpy(buf, blob.pbData(), blob.cbData());
-    ErrMsgFromHResult(hr, m->err);
+    ErrMsgFromHResult(hr, *(m->err));
     return buf;
 }
 
@@ -284,11 +277,11 @@ char* CCadesCertificate_get_value(CCadesCertificate *m, int value)
 
 
 // goint->gostring
-func (obj *GoCadesAbout) GetCSPName(value int) (string, error) {
+func (obj *GoCadesEnvelopedData) Encrypt(value int) (string, error) {
 	var ret string
-	val := C.CCadesAbout_get_csp_name(obj.cobjptr, C.int(value))
+	val := C.CCadesEnvelopedData_encrypt(obj.cobjptr, C.int(value))
 	defer C.free(unsafe.Pointer(val))
-	err := C.GoString(obj.cobjptr.err)
+	err := C.GoString(C.CCadesEnvelopedData_error(obj.cobjptr))
 	if err != "" {
 		return "", errors.New(err)
 	}

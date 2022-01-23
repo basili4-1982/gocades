@@ -253,3 +253,71 @@ func TestSignatureStatus(t *testing.T) {
 	status, _ := signer.GetSignatureStatus()
 	fmt.Println(status.IsValid())
 }
+
+func TestEnvelopedData(t *testing.T) {
+	enveloped, _ := EnvelopedData()
+	fmt.Println(enveloped.PutContent("content to encrypt"))
+	fmt.Println(enveloped.PutContentEncoding(CADESCOM_STRING_TO_UCS2LE))
+	fmt.Println(enveloped.GetContentEncoding())
+	recipients, _ := enveloped.GetRecipients()
+
+	store, _ := Store()
+	store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
+	certificates, _ := store.GetCertificates()
+	cert, _ := certificates.GetItem(1)
+	fmt.Println(recipients.Add(*cert))
+
+	encrypted, _ := enveloped.Encrypt(CADESCOM_ENCODE_BASE64)
+	fmt.Println(encrypted)
+
+	enveloped2, _ := EnvelopedData()
+	fmt.Println(enveloped2.Decrypt(encrypted))
+	fmt.Println(enveloped2.GetContent())
+	fmt.Println(enveloped2.GetAlgorithm())
+
+	enveloped3, _ := EnvelopedData()
+	recipients3, _ := enveloped3.GetRecipients()
+	recipients3.Add(*cert)
+	enc1, _ := enveloped3.StreamEncrypt("AAAA", false)
+	enc2, _ := enveloped3.StreamEncrypt("ABBABAAB", false)
+	enc3, _ := enveloped3.StreamEncrypt("BASDBAAA", true)
+	fmt.Println(enc1, enc2, enc3)
+
+	enveloped4, _ := EnvelopedData()
+	recipients4, _ := enveloped4.GetRecipients()
+	recipients4.Add(*cert)
+	dec1, _ := enveloped4.StreamDecrypt(enc1, false)
+	dec2, _ := enveloped4.StreamDecrypt(enc2, false)
+	dec3, _ := enveloped4.StreamDecrypt(enc3, true)
+	fmt.Println(dec1, dec2, dec3)
+}
+
+func TestRecipients(t *testing.T) {
+	store, _ := Store()
+	store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
+	certificates, _ := store.GetCertificates()
+	cert, _ := certificates.GetItem(1)
+	enveloped, _ := EnvelopedData()
+	recipients, _ := enveloped.GetRecipients()
+	fmt.Println(recipients.Add(*cert))
+	fmt.Println(recipients.GetCount())
+	fmt.Println(recipients.GetItem(1))
+}
+
+func TestAlgorithm(t *testing.T) {
+	store, _ := Store()
+	store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
+	certificates, _ := store.GetCertificates()
+	cert, _ := certificates.GetItem(1)
+	enveloped, _ := EnvelopedData()
+	recipients, _ := enveloped.GetRecipients()
+	recipients.Add(*cert)
+	enveloped.PutContent("content to encrypt")
+	encrypted, _ := enveloped.Encrypt(CADESCOM_ENCODE_BASE64)
+
+	enveloped2, _ := EnvelopedData()
+	enveloped2.Decrypt(encrypted)
+	algorithm, _ := enveloped2.GetAlgorithm()
+	fmt.Println(algorithm.GetKeyLength())
+	fmt.Println(algorithm.GetName())
+}
