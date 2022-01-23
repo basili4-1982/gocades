@@ -281,15 +281,14 @@ func TestEnvelopedData(t *testing.T) {
 	enc1, _ := enveloped3.StreamEncrypt("AAAA", false)
 	enc2, _ := enveloped3.StreamEncrypt("ABBABAAB", false)
 	enc3, _ := enveloped3.StreamEncrypt("BASDBAAA", true)
-	fmt.Println(enc1, enc2, enc3)
+	fmt.Println("===\n", enc1, enc2, enc3)
 
 	enveloped4, _ := EnvelopedData()
 	recipients4, _ := enveloped4.GetRecipients()
 	recipients4.Add(*cert)
-	dec1, _ := enveloped4.StreamDecrypt(enc1, false)
-	dec2, _ := enveloped4.StreamDecrypt(enc2, false)
-	dec3, _ := enveloped4.StreamDecrypt(enc3, true)
-	fmt.Println(dec1, dec2, dec3)
+	fmt.Println(enveloped4.StreamDecrypt(enc1, false))
+	fmt.Println(enveloped4.StreamDecrypt(enc2, false))
+	fmt.Println(enveloped4.StreamDecrypt(enc3, true))
 }
 
 func TestRecipients(t *testing.T) {
