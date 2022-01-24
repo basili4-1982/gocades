@@ -342,3 +342,21 @@ func TestSignedData(t *testing.T) {
 	signeddata2, _ := SignedData()
 	fmt.Println(signeddata2.VerifyCades(signature, CADESCOM_CADES_BES, false))
 }
+
+func TestRawSignature(t *testing.T) {
+	store, _ := Store()
+	store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
+	defer store.Close()
+	certificates, _ := store.GetCertificates()
+	cert, _ := certificates.GetItem(2)
+
+	hashed, _ := HashedData()
+	fmt.Println(hashed.PutAlgorithm(CADESCOM_HASH_ALGORITHM_CP_GOST_3411))
+	fmt.Println(hashed.SetHashValue("DEADBEEFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEE"))
+	rs, _ := RawSignature()
+	hash, err := rs.SignHash(*hashed, *cert)
+	fmt.Println(hash, err)
+
+	rs2, _ := RawSignature()
+	fmt.Println(rs2.VerifyHash(*hashed, *cert, hash))
+}

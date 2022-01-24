@@ -21,6 +21,7 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesLicense.cpp
             CCadesPrivateKey.cpp
             CCadesPublicKey.cpp
+            CCadesRawSignature.cpp
             CCadesRecipients.cpp
             CCadesSignatureStatus.cpp
             CCadesSignedData.cpp

@@ -39,29 +39,6 @@ char* CCadesAttribute_get_value(CCadesAttribute *m)
     if (m == NULL){
         ErrMsgFromHResult(E_UNEXPECTED, m->err);
         return 0;
-    }
-
-    obj = static_cast<CPPCadesCPAttributeObject *>(m->obj);
-    CryptoPro::CBlob blob;
-    HRESULT hr = obj->get_Value(blob);
-    CAtlString sValue((char*)blob.pbData(), blob.cbData() + 1);
-    ErrMsgFromHResult(hr, m->err);
-    return (char*)sValue.GetString();
-}
-
-// blob->void
-void CCadesEnvelopedData_decrypt(CCadesEnvelopedData *m, char* value)
-{
-    if (m == NULL){
-        ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
-        return;
-    }
-
-    CAtlStringA sValue(value);
-    CryptoPro::CBlob blob((const unsigned char *)sValue.GetBuffer(), sValue.GetLength());
-    HRESULT hr = m->obj->Decrypt(blob);
-    ErrMsgFromHResult(hr, *(m->err));
-    return;
 }
 
 // int->void
