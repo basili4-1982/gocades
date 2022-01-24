@@ -23,6 +23,7 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesPublicKey.cpp
             CCadesRecipients.cpp
             CCadesSignatureStatus.cpp
+            CCadesSignedData.cpp
             CCadesSigner.cpp
             CCadesSigners.cpp
             CCadesStore.cpp

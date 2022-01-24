@@ -186,6 +186,7 @@ func TestEncodedData(t *testing.T) {
 func TestStore(t *testing.T) {
 	store, _ := Store()
 	store.Open(CADESCOM_MEMORY_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
+	defer store.Close()
 	fmt.Println(store.GetCertificates())
 	fmt.Println(store.GetLocation())
 	fmt.Println(store.GetName())
@@ -263,6 +264,7 @@ func TestEnvelopedData(t *testing.T) {
 
 	store, _ := Store()
 	store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
+	defer store.Close()
 	certificates, _ := store.GetCertificates()
 	cert, _ := certificates.GetItem(1)
 	fmt.Println(recipients.Add(*cert))
@@ -281,7 +283,7 @@ func TestEnvelopedData(t *testing.T) {
 	enc1, _ := enveloped3.StreamEncrypt("AAAA", false)
 	enc2, _ := enveloped3.StreamEncrypt("ABBABAAB", false)
 	enc3, _ := enveloped3.StreamEncrypt("BASDBAAA", true)
-	fmt.Println("===\n", enc1, enc2, enc3)
+	fmt.Println(enc1, enc2, enc3)
 
 	enveloped4, _ := EnvelopedData()
 	recipients4, _ := enveloped4.GetRecipients()
@@ -294,6 +296,7 @@ func TestEnvelopedData(t *testing.T) {
 func TestRecipients(t *testing.T) {
 	store, _ := Store()
 	store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
+	defer store.Close()
 	certificates, _ := store.GetCertificates()
 	cert, _ := certificates.GetItem(1)
 	enveloped, _ := EnvelopedData()
@@ -306,6 +309,7 @@ func TestRecipients(t *testing.T) {
 func TestAlgorithm(t *testing.T) {
 	store, _ := Store()
 	store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
+	defer store.Close()
 	certificates, _ := store.GetCertificates()
 	cert, _ := certificates.GetItem(1)
 	enveloped, _ := EnvelopedData()
@@ -319,4 +323,22 @@ func TestAlgorithm(t *testing.T) {
 	algorithm, _ := enveloped2.GetAlgorithm()
 	fmt.Println(algorithm.GetKeyLength())
 	fmt.Println(algorithm.GetName())
+}
+
+func TestSignedData(t *testing.T) {
+	store, _ := Store()
+	store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
+	defer store.Close()
+	certificates, _ := store.GetCertificates()
+	cert, _ := certificates.GetItem(2)
+	signer, _ := Signer()
+	signer.PutCertificate(*cert)
+
+	signeddata, _ := SignedData()
+	signeddata.PutContent("content to sign")
+	signature, err := signeddata.SignCades(*signer, CADESCOM_CADES_BES, false, CADESCOM_ENCODE_BASE64)
+	fmt.Println(signature, err)
+
+	signeddata2, _ := SignedData()
+	fmt.Println(signeddata2.VerifyCades(signature, CADESCOM_CADES_BES, false))
 }
