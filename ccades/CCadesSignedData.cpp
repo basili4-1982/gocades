@@ -106,7 +106,7 @@ void CCadesSignedData_put_content_encoding(CCadesSignedData *m, int value)
     }
 
     HRESULT hr = m->obj->put_ContentEncoding((CADESCOM_CONTENT_ENCODING_TYPE)value);
-    ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
+    ErrMsgFromHResult(hr, *(m->err));
     return;
 }
 
@@ -120,7 +120,7 @@ int CCadesSignedData_get_content_encoding(CCadesSignedData *m)
     CADESCOM_CONTENT_ENCODING_TYPE val;
     HRESULT hr = m->obj->get_ContentEncoding(&val);
     DWORD r = (DWORD)val;
-    ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
+    ErrMsgFromHResult(hr, *(m->err));
     return r;
 }
 
@@ -149,7 +149,7 @@ void CCadesSignedData_put_display_data(CCadesSignedData *m, int value)
     }
 
     HRESULT hr = m->obj->put_DisplayData(value);
-    ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
+    ErrMsgFromHResult(hr, *(m->err));
     return;
 }
 
@@ -162,7 +162,7 @@ int CCadesSignedData_get_display_data(CCadesSignedData *m)
 
     DWORD r;
     HRESULT hr = m->obj->get_DisplayData(&r);
-    ErrMsgFromHResult(E_UNEXPECTED, *(m->err));
+    ErrMsgFromHResult(hr, *(m->err));
     return r;
 }
 

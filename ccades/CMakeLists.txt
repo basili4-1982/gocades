@@ -29,6 +29,7 @@ PROJECT(ccades LANGUAGES CXX)
             CCadesSigner.cpp
             CCadesSigners.cpp
             CCadesStore.cpp
+            CCadesSymmetricAlgorithm.cpp
             CCadesVersion.cpp
             CCadesOID.cpp
             errormsg.cpp

@@ -367,3 +367,11 @@ func TestSignedXML(t *testing.T) {
 	fmt.Println(signedxml.PutContent("test"))
 	fmt.Println(signedxml.GetContent())
 }
+
+func TestSymmetricAlgorithm(t *testing.T) {
+	symalg, _ := SymmetricAlgorithm()
+	fmt.Println(symalg.PutIV("12AB34CD56EFBCE5"))
+	fmt.Println(symalg.GetIV())
+	fmt.Println(symalg.PutDiversData("D29429ADB833913892938412233339520135829A9A4839B9DDDB38992128AAAA28841838295001BB"))
+	fmt.Println(symalg.GetDiversData())
+}
