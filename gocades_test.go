@@ -360,3 +360,10 @@ func TestRawSignature(t *testing.T) {
 	rs2, _ := RawSignature()
 	fmt.Println(rs2.VerifyHash(*hashed, *cert, hash))
 }
+
+func TestSignedXML(t *testing.T) {
+	signedxml, _ := SignedXML()
+	fmt.Println(signedxml.GetSigners())
+	fmt.Println(signedxml.PutContent("test"))
+	fmt.Println(signedxml.GetContent())
+}
