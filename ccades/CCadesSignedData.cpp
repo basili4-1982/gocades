@@ -78,7 +78,7 @@ void CCadesSignedData_put_content(CCadesSignedData *m, char* value)
     }
 
     CAtlStringA sValue(value);
-    HRESULT hr = m->obj->put_Content(sValue.GetBuffer() + 1, sValue.GetLength());
+    HRESULT hr = m->obj->put_Content(sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return;
 }

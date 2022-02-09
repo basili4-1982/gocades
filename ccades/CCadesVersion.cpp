@@ -42,7 +42,7 @@ char* CCadesVersion_to_string(CCadesVersion *m)
 
     CAtlString sValue;
     HRESULT hr = m->obj->toString(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;

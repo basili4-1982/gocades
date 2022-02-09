@@ -87,7 +87,7 @@ char* CCadesSignedXML_get_content(CCadesSignedXML *m)
 
     CStringBlob sValue;
     HRESULT hr = m->obj->get_Content(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
