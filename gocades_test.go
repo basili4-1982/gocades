@@ -256,7 +256,7 @@ func TestEnvelopedData(t *testing.T) {
 	enveloped.PutContent("content to encrypt")
 	enveloped.PutContentEncoding(CADESCOM_STRING_TO_UCS2LE)
 	enveloped.GetContentEncoding()
-	recipients, _ := enveloped.GetRecipients()
+	enveloped.GetRecipients()
 
 	//store, _ := Store()
 	//store.Open(CADESCOM_CURRENT_USER_STORE, "My", CAPICOM_STORE_OPEN_MAXIMUM_ALLOWED)
