@@ -42,7 +42,7 @@ char* CCadesLicense_get_company_name(CCadesLicense *m, int value)
 
     CAtlString sValue;
     HRESULT hr = m->obj->CompanyName(value, sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -57,7 +57,7 @@ char* CCadesLicense_get_first_install_date(CCadesLicense *m, int value)
 
     CAtlString sValue;
     HRESULT hr = m->obj->FirstInstallDate(value, sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -72,7 +72,7 @@ char* CCadesLicense_get_serial_number(CCadesLicense *m, int value)
 
     CAtlString sValue;
     HRESULT hr = m->obj->SerialNumber(value, sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -87,7 +87,7 @@ char* CCadesLicense_get_type(CCadesLicense *m, int value)
 
     CAtlString sValue;
     HRESULT hr = m->obj->Type(value, sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -102,7 +102,7 @@ char* CCadesLicense_get_valid_to(CCadesLicense *m, int value)
 
     CAtlString sValue;
     HRESULT hr = m->obj->ValidTo(value, sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;

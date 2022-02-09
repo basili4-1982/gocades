@@ -43,7 +43,7 @@ char* CCadesOID_get_value(CCadesOID *m)
 
     boost::shared_ptr<CAtlStringA> sValue;
     HRESULT hr = m->obj->get_Value(sValue);
-    char *buf = (char*)calloc(sValue->GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue->GetLength() + 1, sizeof(char));
     memcpy(buf, sValue->GetBuffer(), sValue->GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -70,7 +70,7 @@ char* CCadesOID_get_friendly_name(CCadesOID *m)
 
     CAtlString sValue;
     HRESULT hr = m->obj->get_FriendlyName(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;

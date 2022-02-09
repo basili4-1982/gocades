@@ -68,7 +68,7 @@ char* CCadesHashedData_get_value(CCadesHashedData *m)
 
     CAtlStringA sValue;
     HRESULT hr = m->obj->get_Value(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;

@@ -78,7 +78,7 @@ void CCadesSignedData_put_content(CCadesSignedData *m, char* value)
     }
 
     CAtlStringA sValue(value);
-    HRESULT hr = m->obj->put_Content(sValue.GetBuffer(), sValue.GetLength());
+    HRESULT hr = m->obj->put_Content(sValue.GetBuffer() + 1, sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return;
 }
@@ -92,7 +92,7 @@ char* CCadesSignedData_get_content(CCadesSignedData *m)
 
     CStringBlob sValue;
     HRESULT hr = m->obj->get_Content(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;

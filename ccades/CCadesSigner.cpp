@@ -223,7 +223,7 @@ char* CCadesSigner_get_tsa_address(CCadesSigner *m)
 
     CAtlStringA sValue;
     HRESULT hr = m->obj->get_TSAAddress(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;

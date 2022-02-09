@@ -49,7 +49,7 @@ char* CCadesPrivateKey_get_container_name(CCadesPrivateKey *m)
 
     CAtlStringA sValue;
     HRESULT hr = m->obj->get_ContainerName(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -64,7 +64,7 @@ char* CCadesPrivateKey_get_unique_container_name(CCadesPrivateKey *m)
 
     CAtlStringA sValue;
     HRESULT hr = m->obj->get_UniqueContainerName(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -79,7 +79,7 @@ char* CCadesPrivateKey_get_provider_name(CCadesPrivateKey *m)
 
     CAtlString sValue;
     HRESULT hr = m->obj->get_ProviderName(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;

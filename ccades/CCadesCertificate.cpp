@@ -74,7 +74,7 @@ char* CCadesCertificate_get_info(CCadesCertificate *m, int value)
 
     CAtlString sValue;
     HRESULT hr = m->obj->GetInfo((CAPICOM_CERT_INFO_TYPE)value, sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -167,7 +167,7 @@ char* CCadesCertificate_get_thumbprint(CCadesCertificate *m)
 
     CAtlStringA sValue;
     HRESULT hr = m->obj->get_Thumbprint(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -182,7 +182,7 @@ char* CCadesCertificate_get_serial_number(CCadesCertificate *m)
 
     CAtlStringA sValue;
     HRESULT hr = m->obj->get_SerialNumber(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -197,7 +197,7 @@ char* CCadesCertificate_get_subject_name(CCadesCertificate *m)
 
     CAtlStringA sValue;
     HRESULT hr = m->obj->get_SubjectName(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -212,7 +212,7 @@ char* CCadesCertificate_get_issuer_name(CCadesCertificate *m)
 
     CAtlStringA sValue;
     HRESULT hr = m->obj->get_IssuerName(sValue);
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -241,7 +241,7 @@ char* CCadesCertificate_get_valid_to_date(CCadesCertificate *m)
     CryptoPro::CDateTime d;
     HRESULT hr = m->obj->get_ValidToDate(d);
     CAtlString sValue = d.tostring().c_str();
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
@@ -257,7 +257,7 @@ char* CCadesCertificate_get_valid_from_date(CCadesCertificate *m)
     CryptoPro::CDateTime d;
     HRESULT hr = m->obj->get_ValidFromDate(d);
     CAtlString sValue = d.tostring().c_str();
-    char *buf = (char*)calloc(sValue.GetLength(), sizeof(char));
+    char *buf = (char*)calloc(sValue.GetLength() + 1, sizeof(char));
     memcpy(buf, sValue.GetBuffer(), sValue.GetLength());
     ErrMsgFromHResult(hr, *(m->err));
     return buf;
