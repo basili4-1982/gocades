@@ -2,7 +2,7 @@ package gocades
 
 /*
 #cgo CFLAGS: -I${SRCDIR}/ccades
-#cgo LDFLAGS: -L${SRCDIR}/ccades -Wl,-rpath=${SRCDIR}/ccades
+#cgo LDFLAGS: -L${SRCDIR}/ccades -Wl,-rpath=${SRCDIR}/ccades -lccades
 #include <stdlib.h>
 #include "CCadesEKUs.h"
 */
