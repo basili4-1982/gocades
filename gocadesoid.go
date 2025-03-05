@@ -1,8 +1,8 @@
 package gocades
 
 /*
-#cgo CFLAGS: -I${SRCDIR}/ccades
-#cgo LDFLAGS: -L${SRCDIR}/ccades -Wl,-rpath=${SRCDIR}/ccades -lccades
+#cgo CFLAGS: -I$/opt/ccades
+#cgo LDFLAGS: -L$/opt/ccades -Wl,-rpath=$/opt/ccades -lccades
 #include <stdlib.h>
 #include "CCadesOID.h"
 */
