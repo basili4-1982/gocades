@@ -2,7 +2,7 @@ package gocades
 
 /*
 #cgo CFLAGS: -I${SRCDIR}/ccades
-#cgo LDFLAGS: -L${SRCDIR}/ccades -Wl,-rpath=${SRCDIR}/ccades -lccades
+#cgo LDFLAGS: -L${SRCDIR}/ccades -Wl,-rpath=${SRCDIR}/ccades
 #include <stdlib.h>
 #include "CCadesRawSignature.h"
 */
